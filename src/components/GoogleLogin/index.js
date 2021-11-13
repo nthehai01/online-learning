@@ -13,22 +13,12 @@ const GoogleSignIn = () => {
         }
 
         try {
-            // login if user already exists
-            const existingUser = await post('/api/user/login', user)
-            if (existingUser) {
-                localStorageUtils.setToken(existingUser.data.content.accessToken)
-                localStorageUtils.setUser(existingUser.data.content)
+            const temp = await post('/api/user/google-login', user)
+            if (temp) {
+                localStorageUtils.setToken(temp.data.content.accessToken)
+                localStorageUtils.setUser(temp.data.content)
             }
-        } catch (e) {
-            // signup if user does not exist
-            try {
-                const newUser = await post('/api/user/signup', user)
-                if (newUser) {
-                    localStorageUtils.setToken(newUser.data.content.accessToken)
-                    localStorageUtils.setUser(newUser.data.content)
-                }
-            } catch (e) { }
-        }
+        } catch (err) { }
     }
 
     const googleFailure = () => {
