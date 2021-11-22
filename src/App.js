@@ -2,7 +2,7 @@ import GoogleLogin from "./components/GoogleLogin";
 import { Routes, Route } from "react-router-dom";
 import MainNavigation from "./components/layout/MainNavigation";
 import Courses from "./pages/Courses";
-import ActiveCourses from "./pages/ActiveCourses";
+import CourseHistory from "./pages/CourseHistory";
 import BecomeATutor from "./pages/BecomeATutor";
 import "./App.css";
 
@@ -18,7 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Courses />} />
             <Route path="/courses" element={<Courses />} />
-            <Route path="/active-courses" element={<ActiveCourses />} />
+            <Route path="/course-history" element={<CourseHistory />} />
             <Route path="/become-a-tutor" element={<BecomeATutor />} />
           </Routes>
         </div>

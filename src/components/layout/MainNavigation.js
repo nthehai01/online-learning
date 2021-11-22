@@ -28,16 +28,16 @@ const MainNavigation = () => {
                   className="nav-link active"
                   aria-current="page"
                 >
-                  All Courses
+                  Khóa học
                 </Link>
               </li>
               <li className="nav-item">
                 <Link
-                  to="/active-courses"
+                  to="/course-history"
                   className="nav-link active"
                   aria-current="page"
                 >
-                  Courses In Progress
+                  Lịch sử học tập
                 </Link>
               </li>
               <li className="nav-item">
@@ -46,7 +46,7 @@ const MainNavigation = () => {
                   className="nav-link active"
                   aria-current="page"
                 >
-                  Become A Tutor
+                  Đăng ký giảng viên
                 </Link>
               </li>
             </ul>
