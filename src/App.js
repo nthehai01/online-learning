@@ -11,9 +11,6 @@ function App() {
     <>
       <div>
         <MainNavigation />
-        <div className="App">
-          <GoogleLogin />
-        </div>
         <div className="ml-4">
           <Routes>
             <Route path="/" element={<Courses />} />

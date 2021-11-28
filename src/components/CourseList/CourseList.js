@@ -2,6 +2,7 @@ import "./CourseList.css";
 import { useState, useEffect } from "react";
 import CourseCard from "./CourseCard";
 import { get } from "../../utils/ApiCaller";
+import { CircularProgress } from "@mui/material";
 const CourseList = (props) => {
   const [enteredSearchText, setEnteredSearchText] = useState("");
   const [dataContent, setDataContent] = useState(null);
@@ -52,7 +53,7 @@ const CourseList = (props) => {
         {!isLoading && dataContent.length === 0 && (
           <div className="ml-2">Không tìm thấy khóa học thỏa mãn!</div>
         )}
-        {isLoading && <div className="loader"></div>}
+        {isLoading && <CircularProgress />}
       </div>
     </>
   );

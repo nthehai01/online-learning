@@ -1,7 +1,8 @@
 import { get } from "../../utils/ApiCaller";
 import { useState, useEffect } from "react";
-import CourseHistoryCard from "./CourseHistoryCard";
 import CourseHistoryFilter from "./CourseHistoryFilter";
+import { CircularProgress } from "@mui/material";
+import CourseTable from "./CourseTable";
 const CourseHistory = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [dataContent, setDataContent] = useState([]);
@@ -23,10 +24,14 @@ const CourseHistory = (props) => {
     filteredDataContent = filteredDataContent.filter(
       (dat) => dat.course === filteredText
     );
+
   return (
     <>
       <div>
-        <div className="title m-1 mt-4 mb-4">Lịch sử tham gia khóa học</div>
+        <div className="title my-3 ml-3" /*style={{ "text-align": "center" }}*/>
+          Lịch sử tham gia khóa học
+        </div>
+
         <div>
           {!isLoading && (
             <CourseHistoryFilter
@@ -36,17 +41,15 @@ const CourseHistory = (props) => {
             />
           )}
         </div>
-        {!isLoading &&
-          filteredDataContent.length > 0 &&
-          filteredDataContent.map((dataDetail) => (
-            <CourseHistoryCard dat={dataDetail} key={dataDetail._id} />
-          ))}
+        {!isLoading && filteredDataContent.length > 0 && (
+          <CourseTable dat={filteredDataContent} />
+        )}
         {!isLoading && filteredDataContent.length === 0 && (
           <div className="ml-2">
             Hiện tại bạn chưa tham gia khóa học nào cả.
           </div>
         )}
-        {isLoading && <div className="loader"></div>}
+        {isLoading && <CircularProgress />}
       </div>
     </>
   );

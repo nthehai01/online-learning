@@ -1,5 +1,6 @@
 import React from "react";
 import "./CourseCard.css";
+import Rating from "@mui/material/Rating";
 const CourseCard = (props) => {
   var dataDetail = props.dat;
   const calStar = (dataDetail) => {
@@ -11,6 +12,7 @@ const CourseCard = (props) => {
     if (dataDetail.rating.length === 0) return -1;
     return avgstar;
   };
+  console.log(dataDetail);
 
   return (
     <>
@@ -19,11 +21,15 @@ const CourseCard = (props) => {
         key={dataDetail.courseName.toUpperCase()}
       >
         <div className="imgCardCourse">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/NASA-HS201427a-HubbleUltraDeepField2014-20140603.jpg/1200px-NASA-HS201427a-HubbleUltraDeepField2014-20140603.jpg"
-            className="card-img-top"
-            alt="..."
-          />
+          {dataDetail.picture === "#" ? (
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/NASA-HS201427a-HubbleUltraDeepField2014-20140603.jpg/1200px-NASA-HS201427a-HubbleUltraDeepField2014-20140603.jpg"
+              className="card-img-top"
+              alt="..."
+            />
+          ) : (
+            <img src={dataDetail.picture} className="card-img-top" alt="..." />
+          )}
         </div>
         <div className="card-body">
           <h5 className="title card-title align-middle margin:{auto}">
@@ -34,13 +40,16 @@ const CourseCard = (props) => {
             <div className="col-6">
               <p className="card-text m-0">Giảng viên: {dataDetail.tutor}</p>
               {calStar(dataDetail) < 0 ? (
-                `No reviews yet`
+                `Chưa có đánh giá`
               ) : (
-                <span className="stars">
-                  <span
-                    style={{ width: calStar(dataDetail) * 16 + "px" }}
-                  ></span>
-                </span>
+                <Rating
+                  className="mt-1"
+                  name="read-only"
+                  value={calStar(dataDetail)}
+                  precision={0.5}
+                  size="small"
+                  readOnly
+                />
               )}
             </div>
             <div className="col-6">

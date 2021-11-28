@@ -8,12 +8,14 @@ const CourseHistoryFilter = (props) => {
   };
 
   return (
-    <div className="courses-filter">
+    <div className="courses-filter my-4">
       <div className="courses-filter__control">
         <select value={props.selected} onChange={dropdownChangeHandler}>
           <option value="all">-- Tất cả khóa học --</option>
           {props.options.map((opt) => (
-            <option value={opt + ""}>{opt.toUpperCase()}</option>
+            <option value={opt} key={opt}>
+              {opt.toUpperCase()}
+            </option>
           ))}
         </select>
       </div>
