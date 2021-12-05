@@ -12,7 +12,6 @@ const CourseCard = (props) => {
     if (dataDetail.rating.length === 0) return -1;
     return avgstar;
   };
-  console.log(dataDetail);
 
   return (
     <>
@@ -33,17 +32,26 @@ const CourseCard = (props) => {
         </div>
         <div className="card-body">
           <h5 className="title card-title align-middle margin:{auto}">
-            {dataDetail.courseName}
+            {dataDetail.courseName.length > 20
+              ? dataDetail.courseName.substring(0, 17) + "..."
+              : dataDetail.courseName}
           </h5>
-          <p className="card-text m-0">{dataDetail.description}</p>
+          <p className="card-text m-0">
+            {dataDetail.description == "" ? (
+              <i>Chưa có mô tả</i>
+            ) : dataDetail.description.length > 38 ? (
+              dataDetail.description.substring(0, 35) + "..."
+            ) : (
+              dataDetail.description
+            )}
+          </p>
           <div className="row">
-            <div className="col-6">
+            <div className="col-sm-12 col-lg-6">
               <p className="card-text m-0">Giảng viên: {dataDetail.tutor}</p>
               {calStar(dataDetail) < 0 ? (
                 `Chưa có đánh giá`
               ) : (
                 <Rating
-                  className="mt-1"
                   name="read-only"
                   value={calStar(dataDetail)}
                   precision={0.5}
@@ -55,7 +63,7 @@ const CourseCard = (props) => {
             <div className="col-6">
               <a
                 href="https://www.google.com/"
-                className="btn btn-primary mb-2 text-right h-100 d-flex align-items-center justify-content-center"
+                className="btn btn-primary mt-2 mb-1 text-right d-flex align-items-center justify-content-center"
               >
                 XEM CHI TIẾT
               </a>

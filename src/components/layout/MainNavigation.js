@@ -24,7 +24,7 @@ const MainNavigation = () => {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <Link
-                  to="/courses"
+                  to="/course-list"
                   className="nav-link active"
                   aria-current="page"
                 >
@@ -42,11 +42,11 @@ const MainNavigation = () => {
               </li>
               <li className="nav-item">
                 <Link
-                  to="/become-a-tutor"
+                  to="/course-create"
                   className="nav-link active"
                   aria-current="page"
                 >
-                  Đăng ký giảng viên
+                  Khóa học đã tạo
                 </Link>
               </li>
             </ul>

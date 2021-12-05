@@ -2,6 +2,7 @@
   width: 24%;
   display: inline-block;
   float: left;
+  height: 350px;
 }
 .imgCardCourse {
   overflow: hidden;

@@ -1,12 +1,21 @@
+import "./index.css";
 import { useState, useEffect } from "react";
+import CourseCard from "../CourseCard/CourseCard";
 import { get } from "../../utils/ApiCaller";
+import { CircularProgress } from "@mui/material";
 const CourseList = (props) => {
-  useEffect(() => {
-    get("/api/courses/search?perPage=100").then((res) => {
-      setDataContent(res.data.content.items);
-    });
-  }, []);
+  const [enteredSearchText, setEnteredSearchText] = useState("");
+  const [dataContent, setDataContent] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    setIsLoading(true);
+    get("/api/courses/search?perPage=100")
+      .then((res) => {
+        setDataContent(res.data.content.items);
+      })
+      .then(() => setIsLoading(false));
+  }, []);
   const submitHandler = (event) => {
     event.preventDefault();
     setIsLoading(true);
@@ -26,8 +35,8 @@ const CourseList = (props) => {
         <input
           className="form-control mr-sm-2 m-1"
           type="search"
-          placeholder="Search or type URL"
-          aria-label="Search"
+          placeholder="IELTS..."
+          aria-label="Tìm kiếm"
           onChange={enteredSearchTextChangeHandler}
         />
         <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
@@ -44,7 +53,7 @@ const CourseList = (props) => {
         {!isLoading && dataContent.length === 0 && (
           <div className="ml-2">Không tìm thấy khóa học thỏa mãn!</div>
         )}
-        {isLoading && <div className="loader"></div>}
+        {isLoading && <CircularProgress />}
       </div>
     </>
   );

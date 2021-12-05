@@ -1,9 +1,9 @@
 import GoogleLogin from "./components/GoogleLogin";
 import { Routes, Route } from "react-router-dom";
 import MainNavigation from "./components/layout/MainNavigation";
-import Courses from "./pages/Courses";
-import CourseHistory from "./pages/CourseHistory";
-import BecomeATutor from "./pages/BecomeATutor";
+import CourseListPage from "./pages/CourseListPage";
+import CourseHistoryPage from "./pages/CourseHistoryPage";
+import CourseCreatePage from "./pages/CourseCreatePage";
 import "./App.css";
 
 function App() {
@@ -13,10 +13,10 @@ function App() {
         <MainNavigation />
         <div className="ml-4">
           <Routes>
-            <Route path="/" element={<Courses />} />
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/course-history" element={<CourseHistory />} />
-            <Route path="/become-a-tutor" element={<BecomeATutor />} />
+            <Route path="/" element={<CourseListPage />} />
+            <Route path="/course-list" element={<CourseListPage />} />
+            <Route path="/course-history" element={<CourseHistoryPage />} />
+            <Route path="/course-create" element={<CourseCreatePage />} />
           </Routes>
         </div>
       </div>
