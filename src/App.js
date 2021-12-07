@@ -4,7 +4,10 @@ import MainNavigation from "./components/layout/MainNavigation";
 import CourseListPage from "./pages/CourseListPage";
 import CourseHistoryPage from "./pages/CourseHistoryPage";
 import CourseCreatePage from "./pages/CourseCreatePage";
+import "@progress/kendo-theme-default/dist/all.css";
 import "./App.css";
+
+//
 
 function App() {
   return (

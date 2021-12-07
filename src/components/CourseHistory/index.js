@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import CourseHistoryFilter from "./CourseHistoryFilter";
 import { CircularProgress } from "@mui/material";
 import CourseTable from "./CourseTable";
+import LocalStorageUtils from "../../utils/LocalStorageUtils";
 const CourseHistory = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [dataContent, setDataContent] = useState([]);
@@ -10,7 +11,7 @@ const CourseHistory = (props) => {
   useEffect(() => {
     setIsLoading(true);
     get("/api/joining/my-joining", {
-      username: "david",
+      username: LocalStorageUtils.getUser(),
     })
       .then((res) => setDataContent(res.data.content))
       .then(() => setIsLoading(false));

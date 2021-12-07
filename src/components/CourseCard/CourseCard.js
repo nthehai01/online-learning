@@ -14,9 +14,9 @@ const CourseCard = (props) => {
   };
 
   return (
-    <>
+    <div>
       <div
-        className="card m-1 cardCourse"
+        className="card m-4 cardCourse myborder"
         key={dataDetail.courseName.toUpperCase()}
       >
         <div className="imgCardCourse">
@@ -32,21 +32,21 @@ const CourseCard = (props) => {
         </div>
         <div className="card-body">
           <h5 className="title card-title align-middle margin:{auto}">
-            {dataDetail.courseName.length > 20
-              ? dataDetail.courseName.substring(0, 17) + "..."
+            {dataDetail.courseName.length > 23
+              ? dataDetail.courseName.substring(0, 23)
               : dataDetail.courseName}
           </h5>
           <p className="card-text m-0">
-            {dataDetail.description == "" ? (
+            {dataDetail.description === "" ? (
               <i>Chưa có mô tả</i>
-            ) : dataDetail.description.length > 38 ? (
-              dataDetail.description.substring(0, 35) + "..."
+            ) : dataDetail.description.length > 50 ? (
+              dataDetail.description.substring(0, 45) + "..."
             ) : (
               dataDetail.description
             )}
           </p>
           <div className="row">
-            <div className="col-sm-12 col-lg-6">
+            <div className="col-sm-12 col-lg-8">
               <p className="card-text m-0">Giảng viên: {dataDetail.tutor}</p>
               {calStar(dataDetail) < 0 ? (
                 `Chưa có đánh giá`
@@ -60,18 +60,18 @@ const CourseCard = (props) => {
                 />
               )}
             </div>
-            <div className="col-6">
+            <div className="col-4">
               <a
                 href="https://www.google.com/"
                 className="btn btn-primary mt-2 mb-1 text-right d-flex align-items-center justify-content-center"
               >
-                XEM CHI TIẾT
+                XEM
               </a>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

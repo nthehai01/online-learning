@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import CourseCard from "../CourseCard/CourseCard";
 import { get } from "../../utils/ApiCaller";
 import { CircularProgress } from "@mui/material";
+import Pagination from "../Pagination";
+
 const CourseList = (props) => {
   const [enteredSearchText, setEnteredSearchText] = useState("");
   const [dataContent, setDataContent] = useState(null);
@@ -30,30 +32,34 @@ const CourseList = (props) => {
   };
   return (
     <>
-      <div className="title m-1">Tìm kiếm khóa học</div>
-      <form className="form-inline" onSubmit={submitHandler}>
+      <form className="form-inline m-2 ml-4 mt-4 mr-2" onSubmit={submitHandler}>
         <input
-          className="form-control mr-sm-2 m-1"
+          className="form-control"
           type="search"
-          placeholder="IELTS..."
+          placeholder="Tìm kiếm khóa học.."
           aria-label="Tìm kiếm"
           onChange={enteredSearchTextChangeHandler}
         />
-        <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
+        <button
+          className="btn btn-outline-success my-2 ml-2 my-sm-0"
+          type="submit"
+        >
           Search
         </button>
       </form>
       <div>
-        <div className="title m-1 mt-4 mb-4">Các khóa học hiện có</div>
-        {!isLoading &&
-          dataContent.length > 0 &&
-          dataContent.map((dataDetail) => (
-            <CourseCard dat={dataDetail} key={dataDetail._id} />
-          ))}
+        <div className="title m-2 ml-4">Các khóa học hiện có</div>
+        {!isLoading && dataContent.length > 0 && (
+          <Pagination
+            data={dataContent.map((dataDetail) => (
+              <CourseCard dat={dataDetail} key={dataDetail._id} />
+            ))}
+          ></Pagination>
+        )}
         {!isLoading && dataContent.length === 0 && (
           <div className="ml-2">Không tìm thấy khóa học thỏa mãn!</div>
         )}
-        {isLoading && <CircularProgress />}
+        {isLoading && <CircularProgress className="m-2" />}
       </div>
     </>
   );

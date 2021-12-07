@@ -5,6 +5,7 @@ import * as React from "react";
 import { alpha, styled } from "@mui/material/styles";
 import { post } from "../../utils/ApiCaller";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
+import Pagination from "../Pagination";
 import {
   CircularProgress,
   TextField,
@@ -234,11 +235,14 @@ const CourseCreate = (props) => {
           </Fade>
         </Modal>
       </div>
-      {!isLoading &&
-        dataContent.length > 0 &&
-        dataContent.map((dataDetail) => (
-          <CourseCard dat={dataDetail} key={dataDetail._id} />
-        ))}
+
+      {!isLoading && dataContent.length > 0 && (
+        <Pagination
+          data={dataContent.map((dataDetail) => (
+            <CourseCard dat={dataDetail} key={dataDetail._id} />
+          ))}
+        ></Pagination>
+      )}
       {!isLoading && dataContent.length === 0 && (
         <div className="ml-2">Bạn chưa tạo khóa học nào!</div>
       )}

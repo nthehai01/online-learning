@@ -11,7 +11,7 @@ export default function CourseTable(props) {
   var dataDetails = props.dat;
   return (
     <Box mx={2} color="primary" clone sx={{ fontSize: 20 }}>
-      <TableContainer component={Paper} sx={{ maxWidth: 1000 }}>
+      <TableContainer component={Paper} sx={{ maxWidth: 700 }}>
         <Table size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
@@ -30,7 +30,7 @@ export default function CourseTable(props) {
             {dataDetails.map((dataDetail) => (
               <TableRow
                 key={dataDetail.course.toUpperCase()}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row" sx={{ fontSize: 20 }}>
                   {dataDetail.course.toUpperCase()}
