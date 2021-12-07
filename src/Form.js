@@ -11,28 +11,19 @@ const Form = () => {
         setIsSubmitted(true);
     }
     return ( <
-        >
-        <
-        div className = 'form-container' >
-        <
-        span className = 'close-btn' > × < /span> <
-        div className = 'form-content-left' >
-        <
-        img className = 'form-img'
-        src = 'img/img-2.svg'
-        alt = 'spaceship' / >
-        <
-        /div> {
-            !Submitted ? ( <
-                Sign_up_form submitted_data = { submitted_data }
-                />
-            ) : ( <
-                Login_form / >
-            )
-        } <
-        /div> <
+            >
+            <
+            div className = 'form-container' >
+            <
+            span className = 'close-btn' > × < /span>  <
+            div className = 'form-content-left' >
+
+            <
+            /div> {!Submitted ? ( < Sign_up_form submitted_data = { submitted_data }
+                />) : ( < Login_form / > )
+        } < /div>  <
         />
-    );
+);
 };
 
 export default Form;
