@@ -16,13 +16,13 @@ export default function CourseTable(props) {
           <TableHead>
             <TableRow>
               <TableCell sx={{ fontSize: 20 }}>
-                <b>Khóa học</b>
+                <b>Course</b>
               </TableCell>
               <TableCell sx={{ fontSize: 20 }} align="left">
-                <b>Ngày tham gia</b>
+                <b>Joined Date</b>
               </TableCell>
               <TableCell sx={{ fontSize: 20 }} align="left">
-                <b>Thời gian tham gia</b>
+                <b>Joined Time</b>
               </TableCell>
             </TableRow>
           </TableHead>

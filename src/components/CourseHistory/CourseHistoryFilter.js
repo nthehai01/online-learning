@@ -11,7 +11,7 @@ const CourseHistoryFilter = (props) => {
     <div className="courses-filter my-4">
       <div className="courses-filter__control">
         <select value={props.selected} onChange={dropdownChangeHandler}>
-          <option value="all">-- Tất cả khóa học --</option>
+          <option value="all">-- All Courses --</option>
           {props.options.map((opt) => (
             <option value={opt} key={opt}>
               {opt.toUpperCase()}

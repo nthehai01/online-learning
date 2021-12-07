@@ -30,7 +30,7 @@ const CourseHistory = (props) => {
     <>
       <div>
         <div className="title my-3 ml-3" /*style={{ "text-align": "center" }}*/>
-          Lịch sử tham gia khóa học
+          Course Joining History
         </div>
 
         <div>
@@ -46,9 +46,7 @@ const CourseHistory = (props) => {
           <CourseTable dat={filteredDataContent} />
         )}
         {!isLoading && filteredDataContent.length === 0 && (
-          <div className="ml-2">
-            Hiện tại bạn chưa tham gia khóa học nào cả.
-          </div>
+          <div className="ml-2">No course</div>
         )}
         {isLoading && <CircularProgress />}
       </div>

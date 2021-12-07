@@ -28,7 +28,7 @@ const MainNavigation = () => {
                   className="nav-link active"
                   aria-current="page"
                 >
-                  Khóa học
+                  All Courses
                 </Link>
               </li>
               <li className="nav-item">
@@ -37,7 +37,7 @@ const MainNavigation = () => {
                   className="nav-link active"
                   aria-current="page"
                 >
-                  Lịch sử học tập
+                  Course History
                 </Link>
               </li>
               <li className="nav-item">
@@ -46,7 +46,7 @@ const MainNavigation = () => {
                   className="nav-link active"
                   aria-current="page"
                 >
-                  Khóa học đã tạo
+                  Created Courses
                 </Link>
               </li>
             </ul>

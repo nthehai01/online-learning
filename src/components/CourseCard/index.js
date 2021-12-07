@@ -1,5 +1,5 @@
 import React from "react";
-import "./CourseCard.css";
+import "./index.css";
 import Rating from "@mui/material/Rating";
 const CourseCard = (props) => {
   var dataDetail = props.dat;
@@ -38,7 +38,7 @@ const CourseCard = (props) => {
           </h5>
           <p className="card-text m-0">
             {dataDetail.description === "" ? (
-              <i>Chưa có mô tả</i>
+              <i>No details</i>
             ) : dataDetail.description.length > 50 ? (
               dataDetail.description.substring(0, 45) + "..."
             ) : (
@@ -47,9 +47,9 @@ const CourseCard = (props) => {
           </p>
           <div className="row">
             <div className="col-sm-12 col-lg-8">
-              <p className="card-text m-0">Giảng viên: {dataDetail.tutor}</p>
+              <p className="card-text m-0">Tutor: {dataDetail.tutor}</p>
               {calStar(dataDetail) < 0 ? (
-                `Chưa có đánh giá`
+                `No reviews yet`
               ) : (
                 <Rating
                   name="read-only"
@@ -65,7 +65,7 @@ const CourseCard = (props) => {
                 href="https://www.google.com/"
                 className="btn btn-primary mt-2 mb-1 text-right d-flex align-items-center justify-content-center"
               >
-                XEM
+                DETAIL
               </a>
             </div>
           </div>

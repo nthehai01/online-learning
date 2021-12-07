@@ -1,6 +1,6 @@
 import "./index.css";
 import { useState, useEffect } from "react";
-import CourseCard from "../CourseCard/CourseCard";
+import CourseCard from "../CourseCard";
 import { get } from "../../utils/ApiCaller";
 import { CircularProgress } from "@mui/material";
 import Pagination from "../Pagination";
@@ -36,7 +36,7 @@ const CourseList = (props) => {
         <input
           className="form-control"
           type="search"
-          placeholder="Tìm kiếm khóa học.."
+          placeholder="Search Here..."
           aria-label="Tìm kiếm"
           onChange={enteredSearchTextChangeHandler}
         />
@@ -48,7 +48,7 @@ const CourseList = (props) => {
         </button>
       </form>
       <div>
-        <div className="title m-2 ml-4">Các khóa học hiện có</div>
+        <div className="title m-2 ml-4">All Courses</div>
         {!isLoading && dataContent.length > 0 && (
           <Pagination
             data={dataContent.map((dataDetail) => (
@@ -57,7 +57,7 @@ const CourseList = (props) => {
           ></Pagination>
         )}
         {!isLoading && dataContent.length === 0 && (
-          <div className="ml-2">Không tìm thấy khóa học thỏa mãn!</div>
+          <div className="ml-2">No course!</div>
         )}
         {isLoading && <CircularProgress className="m-2" />}
       </div>

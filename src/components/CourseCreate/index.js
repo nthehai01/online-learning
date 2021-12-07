@@ -1,6 +1,6 @@
 import { get } from "../../utils/ApiCaller";
 import { useState, useEffect, useRef } from "react";
-import CourseCard from "../CourseCard/CourseCard";
+import CourseCard from "../CourseCard";
 import * as React from "react";
 import { alpha, styled } from "@mui/material/styles";
 import { post } from "../../utils/ApiCaller";
@@ -102,7 +102,7 @@ const CourseCreate = (props) => {
   return (
     <>
       <div className="title m-1 mt-4 mb-4">
-        Các khóa học đã tạo
+        Created Courses
         <Button
           className="addbutton ml-3"
           variant="contained"
@@ -128,31 +128,31 @@ const CourseCreate = (props) => {
                 variant="h6"
                 component="h2"
               >
-                Nhập thông tin khóa học
+                Enter Courses Detail
               </Typography>
               <RedditTextField
-                label="Tên khóa học"
+                label="CourseName"
                 id="name"
                 variant="filled"
                 style={{ marginTop: 11, width: 300 }}
                 inputRef={courseName}
               />
               <RedditTextField
-                label="Học phí (VND)"
+                label="Fee (VND)"
                 id="fee"
                 variant="filled"
                 style={{ marginTop: 11, marginLeft: 10, width: 200 }}
                 inputRef={courseFee}
               />
               <RedditTextField
-                label="Nhập mô tả"
+                label="Description"
                 id="name"
                 variant="filled"
                 style={{ marginTop: 11, width: 300 }}
                 inputRef={courseDescription}
               />
               <RedditTextField
-                label="Nhập link ảnh nếu có"
+                label="Image Url"
                 id="fee"
                 variant="filled"
                 style={{ marginTop: 11, marginLeft: 10, width: 200 }}
@@ -160,7 +160,7 @@ const CourseCreate = (props) => {
               />
               <TextField
                 id="date_start"
-                label="Ngày bắt đầu"
+                label="Starting Date"
                 type="date"
                 defaultValue="2021-01-31"
                 style={{ marginTop: 11, width: 170 }}
@@ -171,7 +171,7 @@ const CourseCreate = (props) => {
               />
               <TextField
                 id="date_end"
-                label="Ngày kết thúc"
+                label="Ending Date"
                 type="date"
                 defaultValue="2021-12-01"
                 style={{ marginTop: 11, marginLeft: 10, width: 170 }}
@@ -181,7 +181,7 @@ const CourseCreate = (props) => {
                 }}
               />
               <RedditTextField
-                label="Tên miền"
+                label="Slug"
                 placeholder="toeic"
                 id="slug"
                 variant="filled"
@@ -191,7 +191,7 @@ const CourseCreate = (props) => {
               <br />
               <TextField
                 id="time_start"
-                label="Từ"
+                label="From"
                 type="time"
                 defaultValue="07:00"
                 style={{ marginTop: 11, width: 170 }}
@@ -202,7 +202,7 @@ const CourseCreate = (props) => {
               />
               <TextField
                 id="time_end"
-                label="Đến"
+                label="To"
                 type="time"
                 defaultValue="10:00"
                 style={{ marginTop: 11, marginLeft: 10, width: 170 }}
@@ -221,7 +221,7 @@ const CourseCreate = (props) => {
                   createNewCourse();
                 }}
               >
-                Tạo khóa học
+                Create
               </Button>
               <Button
                 className="ml-3 mt-3"
@@ -229,7 +229,7 @@ const CourseCreate = (props) => {
                 onClick={handleClose}
                 style={{ marginTop: 11, marginLeft: 100, width: 100 }}
               >
-                Huỷ
+                Cancel
               </Button>
             </Box>
           </Fade>
@@ -244,7 +244,7 @@ const CourseCreate = (props) => {
         ></Pagination>
       )}
       {!isLoading && dataContent.length === 0 && (
-        <div className="ml-2">Bạn chưa tạo khóa học nào!</div>
+        <div className="ml-2">You haven't created any course yet</div>
       )}
       {isLoading && <CircularProgress />}
     </>
