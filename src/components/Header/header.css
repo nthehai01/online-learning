@@ -1,60 +1,3 @@
-*
-{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root 
-{
-    --primary-color:#0071F0;
-}
-
-.center 
-{
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-}
-
-.header 
-{
-    height: 50px;
-    background-color:white;
-    box-shadow: 1px 2px 1px 1px solid red;
-    -webkit-box-shadow: 1px 1px 1px 1px #C4C4C4;
-}
-
-.logo-wrapper
-{
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.logo__description
-{
-    color: var(--primary-color);
-    line-height: 50px;
-    font-size: 30px;
-    font-weight: 800;
-    margin-bottom: 0;
-}
-
-.authenticate-wrapper
-{
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.authenticate-btn
-{
-    display: block;
-    margin: 2px;
-    line-height: 30px;
-}
-
 .content__left-side-description
 {
     font-size: 90px;
@@ -117,4 +60,22 @@
 .course-heading
 {
     margin-top: 20px;
+}
+
+.logo-link
+{
+    text-decoration: none;
+}
+
+.nav-item
+{
+    line-height: 48px;
+}
+
+.nav-item a
+{
+    text-decoration: none;
+    margin: 10px;
+    font-size: 18px;
+    font-weight: 700;
 }

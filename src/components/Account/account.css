@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #0071f0;
+}
+
+.center {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.header {
+  height: 50px;
+  background-color: white;
+  box-shadow: 1px 2px 1px 1px solid red;
+  -webkit-box-shadow: 1px 1px 1px 1px #c4c4c4;
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.logo__description {
+  color: var(--primary-color);
+  line-height: 50px;
+  font-size: 30px;
+  font-weight: 800;
+  margin-bottom: 0;
+}
+
+.nav-item {
+  display: inline-block;
+}
+
+.nav-item-link {
+  line-height: 48px;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 4px;
+}
+
+.account-wrapper {
+  line-height: 48px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.account-icon {
+  transform: scale(1.5);
+}
+
+.content-wrapper {
+  margin-top: 20px;
+}
+
+.account-heading,
+.account-password-heading {
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+.account-info-wrapper {
+  margin-bottom: 30px;
+}
+
+.login-link,
+.sign-out-link {
+  text-decoration: none;
+}
+
+.account-info-wrapper,
+.account-password-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.account-heading,
+.sign-out-link,
+.account-password-heading,
+.account-management-link {
+  display: block;
+}
+
+.booking-container {
+  margin-top: 20px;
+}
+
+.card {
+  width: 300px;
+  margin: 0 10px;
+}
+
+.card-wrapper {
+  display: flex;
+}
+
+.changerole-btn,
+.payin-btn {
+  width: 150px;
+  margin-right: 10px;
+}
+
+.card.mt-4 {
+  border: 1px solid #ccc;
+}
+
+.button-handle {
+  display: flex !important;
+  margin-bottom: 20px;
+}
+
+.value-input {
+  width: 200px;
+}
+
+.input-group {
+  width: 300px;
+  height: 54px;
+}
+
+.form-control {
+  width: 200px;
+}
