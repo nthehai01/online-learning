@@ -33,7 +33,7 @@ function App() {
           <Route path="/user">
             <AccountManagment />
           </Route>
-          <Route path="/course">
+          <Route path="/course/:courseID">
             <CourseDetail />
           </Route>
           <Route path="/">

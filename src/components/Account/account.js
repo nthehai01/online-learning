@@ -47,7 +47,6 @@ function AccountManagemnt() {
   };
 
   const handlePayIn = (req) => {
-    // Real
     LocalStorageUtils.getToken();
     const user = LocalStorageUtils.getUser();
     const amount = document.querySelector("#amount").value;
@@ -133,9 +132,9 @@ function AccountManagemnt() {
             Chang Role
           </button>
           <form className="mt-4">
-            <div class="form-group">
+            <div className="form-group">
               <label for="amount">Input your money to pay</label>
-              <input type="number" class="form-control mt-2" id="amount" />
+              <input type="number" className="form-control mt-2" id="amount" />
             </div>
             <button
               type="button"

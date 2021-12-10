@@ -10,7 +10,7 @@ function Header() {
           <div className="col-lg-2">
             <div className="logo-wrapper">
               <p className="logo__description">
-                <a href="" className="logo-link">
+                <a href="/" className="logo-link">
                   StudyWithUs
                 </a>
               </p>

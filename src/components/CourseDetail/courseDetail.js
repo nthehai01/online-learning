@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./courseDetail.css";
-import { get, put, remove } from "../../utils/ApiCaller";
+import { get, post, put, remove } from "../../utils/ApiCaller";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
-
-const fakeAPIGetRole = () => {
-  return new Promise((res) => res("tutor"));
-};
+import { useParams, useRouteMatch } from "react-router-dom";
 
 function CourseDetail() {
   const [courseName, setCourseName] = useState("");
@@ -20,12 +17,19 @@ function CourseDetail() {
   const [zoomLink, setZoomLink] = useState("");
   const [listDay, setListDay] = useState([]);
   const [listRating, setListRating] = useState([]);
+  const [slug, setSlug] = useState("");
 
+  // Set role cho học sinh và giáo viên
   const [role, setRole] = useState("");
+  const [star, setStar] = useState("");
+
+  const { courseID } = useParams();
+  console.log({ courseID });
 
   useEffect(() => {
     // get course detail
-    get("/api/courses/detail?course=toeic").then((res) => {
+
+    get("/api/courses/detail?course=" + courseID).then((res) => {
       const courseName = res.data.content.courseName;
       const description = res.data.content.description;
       const picture = res.data.content.picture;
@@ -38,6 +42,7 @@ function CourseDetail() {
       const listDay = res.data.content.day;
       const listRating = res.data.content.rating;
       const zoomLink = res.data.content.zoomHostLink;
+      const slug = res.data.content.slug;
       setCourseName(courseName);
       setDescription(description);
       setPicture(picture);
@@ -50,105 +55,246 @@ function CourseDetail() {
       setListDay(listDay);
       setListRating(listRating);
       setZoomLink(zoomLink);
+      setSlug(slug);
+    });
+    // TEST LOGIN
+    post("/api/user/login", {
+      username: "john",
+      password: "123456",
+    }).then((res) => {
+      LocalStorageUtils.setUser(res.data.content);
+      LocalStorageUtils.setToken(res.data.content.accessToken);
     });
 
-    fakeAPIGetRole().then((res) => setRole(res));
+    console.log(listDay);
+
+    // Get Role tương ứng
+    //getRole();
   }, []);
 
-  const [star, setStar] = useState(3);
+  const getRole = async () => {
+    const user = LocalStorageUtils.getUser();
+    const role = user.role;
+    setRole(role);
+  };
+
+  // OK
+  const editCourseInfo = () => {
+    LocalStorageUtils.getToken();
+    const courseNameEdit = document.querySelector("#courseName").value;
+    const descriptionEdit = document.querySelector("#description").value;
+    const feeEdit = document.querySelector("#fee").value;
+    const timeStartEdit = document.querySelector("#timeStart").value;
+    const timeEndEdit = document.querySelector("#timeEnd").value;
+    const startingDateEdit = document.querySelector("#startingDate").value;
+    const endingDateEdit = document.querySelector("#endingDate").value;
+    put("/api/courses/update", {
+      slug: slug,
+      courseName: courseNameEdit,
+      description: descriptionEdit,
+      fee: feeEdit,
+      time: {
+        starting: timeStartEdit,
+        ending: timeEndEdit,
+      },
+      startingDate: startingDateEdit,
+      endingDate: endingDateEdit,
+    }).then((res) => {
+      alert(res.data.message);
+    });
+    console.log(courseNameEdit);
+  };
+
+  // OK
+  const deleteCourse = () => {
+    LocalStorageUtils.getToken();
+    remove("/api/courses/delete", { slug: slug }).then((res) => {
+      alert(res.data.message);
+    });
+  };
+
+  // OK
+  const createZoomLink = () => {
+    LocalStorageUtils.getToken();
+    post("/api/courses/new-meeting", { slug: slug }).then((res) => {
+      const zoomLink = res.data.content.zoomLink;
+      document.querySelector(".zoomLinkContent").innerHTML = zoomLink;
+    });
+  };
+  // OK ----
+  const getMoney = () => {
+    LocalStorageUtils.getToken();
+    put("/api/enrolling/get-credit", { course: "toeic" }).then((res) =>
+      alert(res.data.message)
+    );
+  };
+
+  // Student
+  const enrollCourse = () => {
+    const user = LocalStorageUtils.getUser();
+    post("/api/enrolling/enroll", { course: courseID, username: user.username })
+      .then((res) => alert(res.data.message))
+      .catch((err) => console.log(err));
+  };
+
+  const joiningCourse = () => {
+    const user = LocalStorageUtils.getUser();
+    post("/api/joining/join", { course: courseID, username: user.username })
+      .then((res) => alert(res.data.message))
+      .catch((err) => console.log(err));
+  };
+
+  // Chỗ này làm có hơi củ chuối
+  const rateCourse = () => {
+    LocalStorageUtils.getToken();
+    const user = LocalStorageUtils.getUser();
+    const starEdit = document.querySelector("#star").value;
+    put("/api/courses/rate", {
+      course: courseID,
+      rating: { username: user.username, star: starEdit },
+    })
+      .then((res) => {
+        alert(res.data.message);
+      })
+      .catch((err) => console.log("Lỗi"));
+  };
+
   const renderRadioButton = () => {
     return (
       <form className="form-rating">
-        <p>Please select your rating:</p>
-        <div>
-          <input type="radio" id="star1" name="star" value="1" />
-          <label for="star1">1</label>
+        <p>Please input your rating: (1-5)</p>
+        <div className="form-group">
+          <input
+            type="number"
+            className="form-control mb-2 mt-2"
+            id="star"
+            min="1"
+            max="5"
+          />
         </div>
-        <div>
-          <input type="radio" id="star2" name="star" value="2" />
-          <label for="star2">2</label>
-        </div>
-        <div>
-          <input type="radio" id="star3" name="star" value="3" />
-          <label for="star3">3</label>
-        </div>
-        <div>
-          <input type="radio" id="star4" name="star" value="4" />
-          <label for="star4">4</label>
-        </div>
-        <div>
-          <input type="radio" id="star4" name="star" value="4" />
-          <label for="star4">5</label>
-        </div>
-        <input type="submit" value="Submit" className="btn btn-primary" />
+        <input
+          type="button"
+          value="Submit"
+          className="btn btn-primary"
+          onClick={rateCourse}
+        />
       </form>
     );
-  };
-
-  const editCourseInfo = () => {
-    LocalStorageUtils.setToken(
-      "eyJhbGciOiJIUzI1NiJ9.am9obg.OirPHigUG9vv4cWPZU_iPJHwH50iwMAWY5AfI9pTNb0"
-    );
-    put("/api/courses/update", {
-      slug: "toeic",
-      description: "TOEIC course",
-    }).then((res) => {
-      console.log(res.data);
-    });
-  };
-
-  const deleteCourse = () => {
-    LocalStorageUtils.setToken(
-      "eyJhbGciOiJIUzI1NiJ9.am9obg.OirPHigUG9vv4cWPZU_iPJHwH50iwMAWY5AfI9pTNb0"
-    );
-    remove("/api/courses/delete", { slue: "ie" }).then((res) => {
-      console.log(res.data.message);
-    });
   };
 
   const renderControlPanel = () => {
     if (role === "tutor") {
       return (
         <React.Fragment>
+          <h4 className="mt-2">Course Info Edit</h4>
+          <p className="no-margin-bottom mt-3">Course Name</p>
+          <input
+            type="text"
+            className="form-control mt-2"
+            id="courseName"
+            defaultValue={courseName}
+          />
+          <p className="no-margin-bottom mt-3">Description</p>
+          <input
+            type="text"
+            className="form-control mt-2"
+            id="description"
+            defaultValue={description}
+          />
+          <p className="no-margin-bottom mt-3">Fee</p>
+          <input
+            type="number"
+            className="form-control mt-2"
+            id="fee"
+            defaultValue={fee}
+          />
+          <p className="no-margin-bottom mt-3">Time Start</p>
+          <input
+            type="text"
+            className="form-control mt-2"
+            id="timeStart"
+            defaultValue={timeStart}
+          />
+          <p className="no-margin-bottom mt-3">Time End</p>
+          <input
+            type="text"
+            className="form-control mt-2"
+            id="timeEnd"
+            defaultValue={timeEnd}
+          />
+          <p className="no-margin-bottom mt-3">Starting Date</p>
+          <input
+            type="text"
+            className="form-control mt-2"
+            id="startingDate"
+            defaultValue={startingDate}
+          />
+          <p className="no-margin-bottom mt-3">Ending Date</p>
+          <input
+            type="text"
+            className="form-control mt-2"
+            id="endingDate"
+            defaultValue={endingDate}
+          />
+          <div
+            href=""
+            className="tutor-btn btn btn-primary mb-4"
+            onClick={editCourseInfo}
+          >
+            Edit
+          </div>
+
+          <h4 className="mt-2"> Delete this course</h4>
+          <div
+            href=""
+            className="tutor-btn btn btn-primary mb-4"
+            onClick={deleteCourse}
+          >
+            Delete
+          </div>
+
+          <h4 className="mt-2"> Create Zoom Link</h4>
           <div
             href=""
             className="tutor-btn btn btn-primary"
-            onClick={editCourseInfo()}
+            onClick={createZoomLink}
           >
-            Sửa thông tin khóa học
+            Create
           </div>
+          <p className="zoomLinkContent">Zoom Link will be pasted here!!</p>
+
+          <h4 className="mt-2"> Get Money</h4>
           <div
             href=""
-            className="tutor-btn btn btn-primary"
-            onClick={deleteCourse()}
+            className="tutor-btn btn btn-primary mb-4"
+            onClick={getMoney}
           >
-            Xóa khóa học
+            Get Money
           </div>
-          <a href="" className="tutor-btn btn btn-primary">
-            Tạo link zoom
-          </a>
-          <a href="" className="tutor-btn btn btn-primary">
-            Nhận tiền
-          </a>
-        </React.Fragment>
-      );
-    } else if (role === "student") {
-      return (
-        <React.Fragment>
-          <a href="" className="tutor-btn btn btn-primary">
-            Đăng kí khóa học
-          </a>
-          <a href="" className="tutor-btn btn btn-primary">
-            Tham gia
-          </a>
-          <a href="" className="tutor-btn btn btn-primary">
-            Đánh giá
-          </a>
-          {renderRadioButton()}
         </React.Fragment>
       );
     }
-    return <React.Fragment></React.Fragment>;
+
+    return (
+      <React.Fragment>
+        <div
+          href=""
+          className="tutor-btn btn btn-primary"
+          onClick={enrollCourse}
+        >
+          Đăng kí khóa học
+        </div>
+        <div
+          href=""
+          className="tutor-btn btn btn-primary"
+          onClick={joiningCourse}
+        >
+          Tham gia
+        </div>
+        <h4 href="">Rating Course</h4>
+        {renderRadioButton()}
+      </React.Fragment>
+    );
   };
 
   return (
@@ -175,17 +321,15 @@ function CourseDetail() {
               <p className="card-text">
                 <b>Day:</b>
                 {listDay.map((day) => {
-                  <p>{day}</p>;
+                  return <p>{day}</p>;
                 })}
               </p>
-              <p className="card-text">
-                <b>Rating:</b>{" "}
-                {listRating.map((star) => {
-                  {
-                    star;
-                  }
+              {/* <p className="card-text">
+                <b>Rating:</b>
+                {listRating.map((rating) => {
+                  return <p>{star}</p>;
                 })}
-              </p>
+              </p> */}
             </div>
           </div>
         </div>
