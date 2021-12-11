@@ -39,11 +39,11 @@ export default class Pagination extends React.Component {
     const renderPageNumbers = pageNumbers.map((number) => {
       return (
         <li
-          class={number === currentPage ? "page-item active" : "page-item"}
+          className={number === currentPage ? "page-item active" : "page-item"}
           key={number}
           onClick={this.handleClick}
         >
-          <div class="page-link" id={number}>
+          <div className="page-link" id={number}>
             {number}
           </div>
         </li>
@@ -53,9 +53,11 @@ export default class Pagination extends React.Component {
     return (
       <>
         <div>{renderTodos} </div>
-        <div class="clrfloat"></div>
+        <div className="clrfloat"></div>
         <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-center">{renderPageNumbers}</ul>
+          <ul className="pagination justify-content-center">
+            {renderPageNumbers}
+          </ul>
         </nav>
       </>
     );

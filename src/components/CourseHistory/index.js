@@ -11,7 +11,7 @@ const CourseHistory = (props) => {
   useEffect(() => {
     setIsLoading(true);
     get("/api/joining/my-joining", {
-      username: LocalStorageUtils.getUser(),
+      username: LocalStorageUtils.getUser().username,
     })
       .then((res) => setDataContent(res.data.content))
       .then(() => setIsLoading(false));

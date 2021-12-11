@@ -14,7 +14,7 @@ const CourseSchedule = (props) => {
   };
   useEffect(() => {
     get("/api/enrolling/my-enrollment", {
-      username: LocalStorageUtils.getUser(),
+      username: LocalStorageUtils.getUser().username,
     }).then((res) => {
       setCalendarData(
         buildMap(

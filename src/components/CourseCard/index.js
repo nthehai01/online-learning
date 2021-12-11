@@ -32,15 +32,11 @@ const CourseCard = (props) => {
         </div>
         <div className="card-body">
           <h5 className="title card-title align-middle margin:{auto}">
-            {dataDetail.courseName.length > 23
-              ? dataDetail.courseName.substring(0, 23)
-              : dataDetail.courseName}
+            {dataDetail.courseName}
           </h5>
-          <p className="card-text m-0">
+          <p className="description card-text m-0">
             {dataDetail.description === "" ? (
               <i>No details</i>
-            ) : dataDetail.description.length > 50 ? (
-              dataDetail.description.substring(0, 45) + "..."
             ) : (
               dataDetail.description
             )}

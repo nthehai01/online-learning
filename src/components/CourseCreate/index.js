@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import CourseCard from "../CourseCard";
 import * as React from "react";
 import { alpha, styled } from "@mui/material/styles";
+import { Alert } from "@mui/material";
 import { post } from "../../utils/ApiCaller";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
 import Pagination from "../Pagination";
@@ -19,11 +20,11 @@ import {
 import MultipleSelectCheckmarks from "./MultipleSelectCheckmarks";
 
 const CourseCreate = (props) => {
-  const courseName = useRef();
-  const courseSlug = useRef();
-  const courseFee = useRef();
-  const courseDescription = useRef();
-  const courseUrl = useRef();
+  const courseName = useRef("");
+  const courseSlug = useRef("");
+  const courseFee = useRef(0);
+  const courseDescription = useRef("");
+  const courseUrl = useRef("#");
   const courseStart = useRef();
   const courseEnd = useRef();
   const courseTimeStart = useRef();
@@ -34,17 +35,7 @@ const CourseCreate = (props) => {
   const handleClose = () => setOpen(false);
   const [isLoading, setIsLoading] = useState(true);
   const [dataContent, setDataContent] = useState([]);
-  useEffect(() => {
-    setIsLoading(true);
-    get("/api/courses/my-courses", {
-      username: LocalStorageUtils.getUser(),
-    })
-      .then((res) => setDataContent(res.data.content))
-      .then(() => setIsLoading(false));
-  }, []);
-  const setCourseWeekday = (value) => {
-    courseWeekday = value;
-  };
+  const [errMessage, setErrMessage] = useState("");
   const createNewCourse = () => {
     var url = courseUrl.current.value === "" ? "#" : courseUrl.current.value;
     var body = {
@@ -53,7 +44,7 @@ const CourseCreate = (props) => {
       description: courseDescription.current.value,
       fee: courseFee.current.value - 0,
       picture: url,
-      tutor: LocalStorageUtils.getUser(),
+      tutor: LocalStorageUtils.getUser().username,
       time: {
         starting: courseTimeStart.current.value,
         ending: courseTimeEnd.current.value,
@@ -62,8 +53,32 @@ const CourseCreate = (props) => {
       startingDate: courseStart.current.value,
       endingDate: courseEnd.current.value,
     };
-    post("/api/courses/create", body);
+    post("/api/courses/create", body)
+      .then((res) => {
+        handleClose();
+        document.location.reload();
+      })
+      .catch((err) => {
+        var x = document.querySelector(".alertlog");
+        setErrMessage(err.response.data.message);
+        x.style.display = "block";
+        setTimeout(function () {
+          x.style.display = "none";
+        }, 2000);
+      });
   };
+  useEffect(() => {
+    setIsLoading(true);
+    get("/api/courses/my-courses", {
+      username: LocalStorageUtils.getUser().username,
+    })
+      .then((res) => setDataContent(res.data.content))
+      .then(() => setIsLoading(false));
+  }, []);
+  const setCourseWeekday = (value) => {
+    courseWeekday = value;
+  };
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -140,6 +155,7 @@ const CourseCreate = (props) => {
               <RedditTextField
                 label="Fee (VND)"
                 id="fee"
+                type="number"
                 variant="filled"
                 style={{ marginTop: 11, marginLeft: 10, width: 200 }}
                 inputRef={courseFee}
@@ -212,12 +228,19 @@ const CourseCreate = (props) => {
                 }}
               />
               <MultipleSelectCheckmarks passData={setCourseWeekday} />
+              <div className="alertlog" style={{ display: "none" }}>
+                <Alert
+                  severity="error"
+                  style={{ marginTop: 11, marginLeft: 10, width: 510 }}
+                >
+                  {errMessage}
+                </Alert>
+              </div>
               <Button
                 className="mt-3"
                 variant="contained"
                 style={{ marginTop: 11, marginLeft: 100, width: 300 }}
                 onClick={() => {
-                  handleClose();
                   createNewCourse();
                 }}
               >
