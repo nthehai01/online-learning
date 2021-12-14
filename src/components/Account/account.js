@@ -35,16 +35,16 @@ function AccountManagemnt() {
   }, []);
 
   // OK
-  const handleChangeRole = async () => {
-    const accessToken = LocalStorageUtils.getToken();
-    const user = LocalStorageUtils.getUser();
+  // const handleChangeRole = async () => {
+  //   const accessToken = LocalStorageUtils.getToken();
+  //   const user = LocalStorageUtils.getUser();
 
-    put("/api/user/become-tutor", { username: user.username }, {}).then(
-      (res) => {
-        alert(res.data.message);
-      }
-    );
-  };
+  //   put("/api/user/become-tutor", { username: user.username }, {}).then(
+  //     (res) => {
+  //       alert(res.data.message);
+  //     }
+  //   );
+  // };
 
   const handlePayIn = (req) => {
     LocalStorageUtils.getToken();
@@ -62,7 +62,7 @@ function AccountManagemnt() {
           <div className="col-lg-12">
             <div className="account-info-wrapper">
               <h3 className="account-heading">Account</h3>
-              <a className="sign-out-link btn-sm btn-primary" href="#">
+              <a className="sign-out-link btn-sm btn-primary" href="">
                 Sign Out
               </a>
             </div>
@@ -75,7 +75,7 @@ function AccountManagemnt() {
               <h3 className="account-password-heading">Hi, {username}</h3>
               <a
                 className="account-management-link btn btn-primary btn-sm"
-                href="#"
+                href=""
               >
                 AccountManagemnt
               </a>
@@ -86,7 +86,7 @@ function AccountManagemnt() {
         <div className="row">
           <div className="col-lg-12">
             <div className="booking-container">
-              <h5 className="booking-heading">Your Booking Infomartion </h5>
+              <h5 className="booking-heading">My Enrolled Course </h5>
             </div>
           </div>
         </div>
@@ -125,12 +125,6 @@ function AccountManagemnt() {
         </div>
 
         <div className="row mt-4 button-handle">
-          <button
-            className="btn btn-primary changerole-btn alert-secondary"
-            onClick={handleChangeRole}
-          >
-            Chang Role
-          </button>
           <form className="mt-4">
             <div className="form-group">
               <label for="amount">Input your money to pay</label>

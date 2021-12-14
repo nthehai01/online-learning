@@ -69,7 +69,7 @@ function CourseDetail() {
     console.log(listDay);
 
     // Get Role tương ứng
-    //getRole();
+    getRole();
   }, []);
 
   const getRole = async () => {
