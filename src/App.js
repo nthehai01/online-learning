@@ -6,12 +6,13 @@ import CourseHistoryPage from "./pages/CourseHistoryPage";
 import CourseCreatePage from "./pages/CourseCreatePage";
 import "@progress/kendo-theme-default/dist/all.css";
 import "./App.css";
+import { BrowserRouter } from "react-router-dom";
 
 //
 
 function App() {
   return (
-    <>
+    <BrowserRouter>
       <div>
         <MainNavigation />
         <div className="ml-4">
@@ -23,7 +24,7 @@ function App() {
           </Routes>
         </div>
       </div>
-    </>
+    </BrowserRouter>
   );
 }
 export default App;
