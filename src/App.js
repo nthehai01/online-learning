@@ -8,8 +8,6 @@ import "@progress/kendo-theme-default/dist/all.css";
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
 
-//
-
 function App() {
   return (
     <BrowserRouter>
