@@ -15,8 +15,8 @@ function CourseDetail() {
   const [fee, setFee] = useState("");
   const [tutor, setTutor] = useState("");
   const [zoomLink, setZoomLink] = useState("");
+  const [zoomHostLink, setZoomHostLink] = useState("");
   const [listDay, setListDay] = useState([]);
-  const [listRating, setListRating] = useState([]);
   const [slug, setSlug] = useState("");
 
   // Set role cho học sinh và giáo viên
@@ -32,7 +32,10 @@ function CourseDetail() {
     get("/api/courses/detail?course=" + courseID).then((res) => {
       const courseName = res.data.content.courseName;
       const description = res.data.content.description;
-      const picture = res.data.content.picture;
+      var picture = res.data.content.picture;
+      if (!picture)
+        picture =
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/NASA-HS201427a-HubbleUltraDeepField2014-20140603.jpg/1200px-NASA-HS201427a-HubbleUltraDeepField2014-20140603.jpg";
       const timeStart = res.data.content.time.starting;
       const timeEnd = res.data.content.time.ending;
       const startingDate = res.data.content.startingDate;
@@ -41,7 +44,8 @@ function CourseDetail() {
       const tutor = res.data.content.tutor;
       const listDay = res.data.content.day;
       const listRating = res.data.content.rating;
-      const zoomLink = res.data.content.zoomHostLink;
+      const zoomLink = res.data.content.zoomLink;
+      const zoomHostLink = res.data.content.zoomHostLink;
       const slug = res.data.content.slug;
       setCourseName(courseName);
       setDescription(description);
@@ -53,7 +57,6 @@ function CourseDetail() {
       setFee(fee);
       setTutor(tutor);
       setListDay(listDay);
-      setListRating(listRating);
       setZoomLink(zoomLink);
       setSlug(slug);
     });
@@ -69,7 +72,7 @@ function CourseDetail() {
     console.log(listDay);
 
     // Get Role tương ứng
-    getRole();
+    //getRole();
   }, []);
 
   const getRole = async () => {
@@ -99,34 +102,45 @@ function CourseDetail() {
       },
       startingDate: startingDateEdit,
       endingDate: endingDateEdit,
-    }).then((res) => {
-      alert(res.data.message);
-    });
-    console.log(courseNameEdit);
+    })
+      .then((res) => {
+        alert(res.data.message);
+      })
+      .catch((err) => console.log(err.response));
   };
 
   // OK
   const deleteCourse = () => {
     LocalStorageUtils.getToken();
-    remove("/api/courses/delete", { slug: slug }).then((res) => {
-      alert(res.data.message);
-    });
+    remove("/api/courses/delete", { slug: slug })
+      .then((res) => {
+        alert(res.data.message);
+      })
+      .catch((err) => console.log(err.response));
   };
 
   // OK
-  const createZoomLink = () => {
+  const createZoomHostLink = () => {
     LocalStorageUtils.getToken();
-    post("/api/courses/new-meeting", { slug: slug }).then((res) => {
-      const zoomLink = res.data.content.zoomLink;
-      document.querySelector(".zoomLinkContent").innerHTML = zoomLink;
-    });
+    post("/api/courses/new-meeting", { slug: slug })
+      .then((res) => {
+        const zoomHostLink = res.data.content.zoomHostLink;
+        const zoomLink = res.data.content.zoomLink;
+        if (document.querySelector(".zoomLinkContent"))
+          document.querySelector(".zoomLinkContent").innerHTML = zoomHostLink;
+        if (document.querySelector(".zoomLinkContentStudent"))
+          document.querySelector(".zoomLinkContentStudent").innerHTML =
+            zoomLink;
+      })
+      .catch((err) => console.log(err));
   };
+
   // OK ----
   const getMoney = () => {
     LocalStorageUtils.getToken();
-    put("/api/enrolling/get-credit", { course: "toeic" }).then((res) =>
-      alert(res.data.message)
-    );
+    put("/api/enrolling/get-credit", { course: courseID })
+      .then((res) => alert(res.data.message))
+      .catch((err) => console.log(err.response));
   };
 
   // Student
@@ -134,14 +148,21 @@ function CourseDetail() {
     const user = LocalStorageUtils.getUser();
     post("/api/enrolling/enroll", { course: courseID, username: user.username })
       .then((res) => alert(res.data.message))
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err.response));
   };
 
   const joiningCourse = () => {
     const user = LocalStorageUtils.getUser();
     post("/api/joining/join", { course: courseID, username: user.username })
-      .then((res) => alert(res.data.message))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        alert(res.data.message);
+        document.querySelector(".zoomLinkContentStudent").innerHTML = zoomLink;
+      })
+      .catch((err) => {
+        console.log(err.response);
+        document.querySelector(".zoomLinkContentStudent").innerHTML =
+          err.response.data.message;
+      });
   };
 
   // Chỗ này làm có hơi củ chuối
@@ -156,7 +177,7 @@ function CourseDetail() {
       .then((res) => {
         alert(res.data.message);
       })
-      .catch((err) => console.log("Lỗi"));
+      .catch((err) => console.log(err.response));
   };
 
   const renderRadioButton = () => {
@@ -253,11 +274,11 @@ function CourseDetail() {
             Delete
           </div>
 
-          <h4 className="mt-2"> Create Zoom Link</h4>
+          <h4 className="mt-2"> Create Zoom Host Link</h4>
           <div
             href=""
             className="tutor-btn btn btn-primary"
-            onClick={createZoomLink}
+            onClick={createZoomHostLink}
           >
             Create
           </div>
@@ -291,6 +312,16 @@ function CourseDetail() {
         >
           Tham gia
         </div>
+        <div
+          href=""
+          className="tutor-btn btn btn-primary"
+          onClick={createZoomHostLink}
+        >
+          Get Zoom Link
+        </div>
+        <p className="zoomLinkContentStudent">
+          Zoom Link will be pasted here!!
+        </p>
         <h4 href="">Rating Course</h4>
         {renderRadioButton()}
       </React.Fragment>

@@ -20,19 +20,12 @@ function Header() {
           <div className="col-lg-8">
             <ul className="nav-list">
               <li className="nav-item">
-                <Link to="/tutor">Tutor</Link>
-              </li>
-              <li className="nav-item">
                 <Link to="/schedule">Schedule</Link>
                 {/* <a href="" className="nav-item-link">Shedule</a> */}
               </li>
               <li className="nav-item">
                 <Link to="/course">Course</Link>
                 {/* <a href="" className="nav-item-link">Course</a> */}
-              </li>
-              <li className="nav-item">
-                <Link to="/">Become a Tutor</Link>
-                {/* <a href="" className="nav-item-link">Become a Tutor</a> */}
               </li>
               <li className="nav-item">
                 <Link to="/user">Account</Link>
