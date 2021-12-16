@@ -1,5 +1,5 @@
-import GoogleLogin from './components/GoogleLogin';
-import './Form.css';
+// import GoogleLogin from './components/GoogleLogin';
+
 import Sign_up_form from './components/SignUp/Form_Signup';
 import Login_form from './components/Login/Form_login';
 import React, { useState } from 'react'
@@ -27,7 +27,7 @@ function Form() {
         } </div> 
         </>
         {/* <Form /> */}
-        <GoogleLogin />
+        {/* <GoogleLogin /> */}
 
 
         </div>

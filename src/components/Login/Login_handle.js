@@ -6,6 +6,9 @@ const Handle_login = (validate) => {
     const [State, SetState] = useState(initial_value);
     const [error_message, set_errors] = useState({});
     const [submitting, setsubmit] = useState(false);
+    // const message_login={mes: ""};
+   
+    const[login,setlogin]=useState({})
     //
 
 
@@ -32,16 +35,25 @@ const Handle_login = (validate) => {
                 console.log(State)
                 post('/api/user/login', State)
                     .then(res => {
+                        console.log(res)
                         LocalStorageUtils.setUser(res.data.content)
                         LocalStorageUtils.setToken(res.data.content.accessToken)
-                        LocalStorageUtils.log(res.data.message) // check error
-                    }).catch(err => console.log(err))
+                      
+                    }).catch(
+                        e=>{ 
+                            login.mes='Username/password is not match'
+                          setlogin(login)
+                          console.log(login.mes)
+                      }
+                      
+                    
+                      )   
             }
-        }, [error_message], [State]
+        }, [error_message], [State],[login]
     );
 
 
-    return { handleChange, handlesubmit, State, error_message };
+    return { handleChange, handlesubmit, State, error_message,login };
 };
 
 export default Handle_login;

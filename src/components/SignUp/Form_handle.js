@@ -6,14 +6,15 @@ const Custom_form = (callback, validate) => {
     const [State, SetState] = useState(initial_value);
     const [error_message, set_errors] = useState({});
     const [submitting, setsubmit] = useState(false);
-    //
+
+    const[login,setlogin]=useState({})
 
 
     //
-    const handleChange = e => {
+    function handleChange(e) {
         const { name, value } = e.target;
-        SetState({...State, [name]: value });
-    };
+        SetState({ ...State, [name]: value });
+    }
 
     const handlesubmit = e => {
         e.preventDefault();
@@ -36,24 +37,41 @@ const Custom_form = (callback, validate) => {
                     "email": State.email,
                     "picture": State.picture
                 }
-                console.log(User2)
+                // console.log(User2)
+               
                 post('/api/user/signup', User2)
                     .then(res => {
-                        LocalStorageUtils.setUser(res.data.content)
+                       
+                     const  user2_Ed =  LocalStorageUtils.setUser(res.data.content)
+                     if (user2_Ed === null) { console.warn('Registration failed, check again!') ; }
+
+                        console.log(res)
                         LocalStorageUtils.setToken(res.data.content.accessToken)
-                        LocalStorageUtils.log(res) // check error
-                    }).catch(err => console.log(err))
-                    //
-                const user2_Ed = LocalStorageUtils.getUser();
-                if (user2_Ed === null) { console.warn('Registration failed, check again!') }
-                callback();
-            }
-        }, useCallback([State], [submitting], [error_message])
+                       
+                      if(res.data.message==='Signup successfully') { callback();}
+
+
+                    }).catch(
+                      e=>{  
+                        login.mes='Signup failed. User already exists'
+                        setlogin(login)
+                        console.log(login.mes)
+                    }
+                    
+                  
+                    )   // if error, prevent login
+                 
+                  
+                    
+                   
+                // callback();
+            }   
+        }, useCallback([State], [submitting], [error_message],[login])
     );
 
 
 
-    return { handleChange, handlesubmit, State, error_message };
+    return { handleChange, handlesubmit, State, error_message,login };
 };
 
 export default Custom_form;

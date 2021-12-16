@@ -18,7 +18,7 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 18px;
-    background: url(./login_background.png);
+    /* background: url(./login_background.png); */
     background-size: cover;
     background-color: rgba(red, green, blue, 0.5);
 }

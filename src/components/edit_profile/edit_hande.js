@@ -10,7 +10,7 @@ const Handle_edit_user_infor = (validate) => {
     const [changepass, setpass] = useState(false);
     const [changerole, setrole] = useState(false);
     const user2_Ed = LocalStorageUtils.getUser(); /// lấy dữ liệu cũ của người dùng
-
+    const [pass,setpass_err]=useState({})
 
     //
     const handleChange = e => {
@@ -36,12 +36,7 @@ const Handle_edit_user_infor = (validate) => {
 
     };
 
-    // mặc định callback là function, ngăn lỗi
- 
-    // useEffect(
-    //     () => {
-    //         console.log(State)
-            
+       
             if (Object.keys(error_message).length === 0 && submitting) {
                 const User2 = {
                     "username": user2_Ed.username,
@@ -60,21 +55,15 @@ const Handle_edit_user_infor = (validate) => {
                         LocalStorageUtils.setUser(res.data.content)
                         LocalStorageUtils.setToken(res.data.content.accessToken)
                         LocalStorageUtils.log(res.data.message) // check error
-                    }).catch(err => console.log(err))
+                        
+                    }).catch(err =>   console.log(err)
+                    )
                     //
+                    pass.info='Change successfully'
+                    setpass_err(pass)
                     setsubmit(false)
             }
-    //     }, useCallback([State], [submitting],[error_message])
-    // )
-                // callback();
-                // CHANGE PASS
-    
-                //
-                // if (user2_Ed === null) { console.warn('Change inform failed, check again!') }
-                // callback();
-                //CHANGE ROLE
-        // useEffect(
-        //             () => {
+  
                  if (Object.keys(error_message).length === 0 && changepass) {
                          const User={
                             "username": user2_Ed.username,
@@ -87,7 +76,12 @@ const Handle_edit_user_infor = (validate) => {
                                     LocalStorageUtils.setUser(res.data.content)
                                     LocalStorageUtils.setToken(res.data.content.accessToken)
                                     console.log(res.data.message) // check error
-                                }).catch(err => console.log(err))
+                                }).catch(err =>{
+                                    pass.error="Old password is not match"
+                                    setpass_err(pass)
+                                    setpass(false)  
+                                })
+
                                 setpass(false)  
                         }
             //         } , useCallback([State], [changepass],[error_message])
@@ -102,7 +96,10 @@ const Handle_edit_user_infor = (validate) => {
                             LocalStorageUtils.setUser(res.data.content)
                             LocalStorageUtils.setToken(res.data.content.accessToken)
                             console.log(res.data.message) // check error
+                           
                         }).catch(err => console.log(err))
+                        pass.role='Change successfully'
+                        setpass_err(pass)
                         setrole(false)   // để không gửi lệnh này khi thực hiện submit khác
 
             }
@@ -111,7 +108,7 @@ const Handle_edit_user_infor = (validate) => {
 
 
 
-    return { handleChange, handlechangeinform,handlechangerole, handlechangepass,State, error_message };
+    return { handleChange, handlechangeinform,handlechangerole, handlechangepass,State, error_message,pass };
 };
 
 export default Handle_edit_user_infor;
