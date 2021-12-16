@@ -1,0 +1,9 @@
+li {
+  display: inline;
+}
+.clrfloat {
+  clear: both;
+}
+.page-item {
+  cursor: pointer !important;
+}
