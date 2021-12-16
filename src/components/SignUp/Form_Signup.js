@@ -2,11 +2,12 @@ import React from 'react';
 import './Form.css';
 import Validate_signup from './signup_validate';
 import Custom_form from './Form_handle';
+import GoogleSignIn from '../GoogleLogin';
 
 
 const Sign_up_form = ({ submitted_data }) => {
 
-        const { handleChange, handlesubmit, State, error_message } = Custom_form(submitted_data, Validate_signup);
+        const { handleChange, handlesubmit, State, error_message,login } = Custom_form(submitted_data, Validate_signup);
 
         return ( 
                 <div className = "form-content" >
@@ -49,7 +50,13 @@ const Sign_up_form = ({ submitted_data }) => {
                 </div> 
 
                 <button className = 'form-input-button' type = 'submit' > Sign up </button> <br/>
+                
+                <div className = 'form-inputs' >
+                {login.mes && <p> { login.mes } </p> }  
+                </div> 
+
                  <span className = 'form-input-submit' > Already have submitted ? <a href="/Form_login"> Login here </a> </span >
+                 <GoogleSignIn />
 
                                            </form>
 

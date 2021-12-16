@@ -2,12 +2,13 @@
 import React from 'react';
 import Validate_edit from './edit_validate';
 import Handle_edit_user_infor from './edit_hande';
+import './Form.css'
 
 
 
 const  User_edit = () => {
 
-                const { handleChange, handlechangeinform,handlechangerole, handlechangepass,State, error_message  } = Handle_edit_user_infor (Validate_edit);
+                const { handleChange, handlechangeinform,handlechangerole, handlechangepass,State, error_message,pass  } = Handle_edit_user_infor (Validate_edit);
                 // const user2_Ed = storage.getUser();
                 // if (!user2_Ed){user2_Ed=""}
                 return ( 
@@ -35,7 +36,11 @@ const  User_edit = () => {
                                  <input name = 'picture' value = { State.picture }  onChange = { handleChange }  placeholder = 'Paste link your picture' /> <br/>
                                   {error_message.picture && <p> { error_message.picture } </p> }  
                         </div> 
+                        <div className = 'form-inputs' >
                         <button className = 'form-input-button' type = 'submit' > Submit </button> <br/>
+                        {pass.info&& <p  > { pass.info} </p>}   
+                        </div >
+                        
                         </form>
 
                         <form onSubmit = { handlechangepass } className = 'form-container'  noValidate >
@@ -50,7 +55,10 @@ const  User_edit = () => {
                                 <input type = "password" name = 'newPassword' value = { State.newPassword } onChange = { handleChange }  placeholder = 'Enter your confirmpassword' /> <br/> 
                                 {error_message.newPassword && <p> { error_message.newPassword } </p> }  
                         </div >  
+                        <div className = 'form-inputs' >
                         <button className = 'form-input-button' type = 'submit' > Submit </button> <br/>
+                        {pass.error && <p  > { pass.error} </p>}   
+                        </div >
                         </form>
                         
                         <form onSubmit = { handlechangerole } className = 'form-container'  noValidate >
@@ -59,8 +67,10 @@ const  User_edit = () => {
                         <div className = 'form-inputs' >
                                 <label className = 'label-form' > <b> Are you a teacher?  </b>   </label > < br/>
                         </div >  
-                 
+                        <div className = 'form-inputs' >
                         <button className = 'form-input-button' type = 'submit' > Yes </button> <br/>
+                        {pass.role && <p  > { pass.role} </p>}   
+                        </div >  
                         </form>
             
         

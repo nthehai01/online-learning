@@ -2,10 +2,10 @@ import './Form.css';
 import React from 'react';
 import Validate from './login_validate'
 import Handle_login from './Login_handle'
-
+import GoogleSignIn from '../GoogleLogin';
 const Login_form = () => {
 
-        const { handleChange, handlesubmit, State, error_message } = Handle_login(Validate);
+        const { handleChange, handlesubmit, State, error_message,login } = Handle_login(Validate);
 
         return (
 
@@ -22,10 +22,14 @@ const Login_form = () => {
                          <input type = "password" name = 'password' value = { State.password } onChange = { handleChange } placeholder = 'Enter your password' /> <br/> 
                          {error_message.password && <p> { error_message.password } </p>}   
                 </div> 
-
+                <div className = 'form-inputs' >
+                        
                 <button className = 'form-input-button' type = 'submit' > Login </button> <br/> 
+               
+                {login.mes && <p> { login.mes } </p> }  
+                </div> 
                 { /* <span className = 'form-input-submit' > Already have submitted ? Login <a href = '#'> here </a> </span> */ }
-
+                <GoogleSignIn />
                         </form>
                         </div>
 
