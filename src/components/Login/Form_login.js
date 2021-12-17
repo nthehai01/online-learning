@@ -37,5 +37,4 @@ const Login_form = () => {
 
                 };
 
-
-                export default Login_form;
+export default Login_form;

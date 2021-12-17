@@ -76,6 +76,9 @@ const Handle_edit_user_infor = (validate) => {
                                     LocalStorageUtils.setUser(res.data.content)
                                     LocalStorageUtils.setToken(res.data.content.accessToken)
                                     console.log(res.data.message) // check error
+                                    pass.error='Change password successfully'
+                                    setpass_err(pass)
+                                    setpass(false)  
                                 }).catch(err =>{
                                     pass.error="Old password is not match"
                                     setpass_err(pass)
