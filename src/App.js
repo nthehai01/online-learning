@@ -55,11 +55,20 @@ import "@progress/kendo-theme-default/dist/all.css";
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
 
+
 import Account from "./components/Account/account";
 import CourseDetail from "./components/CourseDetail/courseDetail";
 
+import Form from "./components/Signup_to_login/Form";   //Form - Signup page, Signup success -> login page
+import Sign_up_form from "./components/SignUp/Form_Signup";  // Signup page
+import Login_form from "./components/Login/Form_login";// Login page
+import User_edit from "./components/edit_profile/edit_user_infor";  // account management page
+
+
+
 function App() {
   return (
+
     <BrowserRouter>
       <div>
         <MainNavigation />
