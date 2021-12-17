@@ -55,6 +55,9 @@ import "@progress/kendo-theme-default/dist/all.css";
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
 
+import Account from "./components/Account/account";
+import CourseDetail from "./components/CourseDetail/courseDetail";
+
 function App() {
   return (
     <BrowserRouter>
@@ -66,11 +69,14 @@ function App() {
             <Route path="/course-list" element={<CourseListPage />} />
             <Route path="/course-history" element={<CourseHistoryPage />} />
             <Route path="/course-create" element={<CourseCreatePage />} />
+
+            {/* Bảo thêm dô đoạn này  */}
+            <Route path="/account" element={<Account />} />
+            <Route path="/course/:courseID" element={<CourseDetail />} />
           </Routes>
         </div>
       </div>
     </BrowserRouter>
-
   );
 }
 

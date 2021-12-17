@@ -72,7 +72,7 @@ function CourseDetail() {
     console.log(listDay);
 
     // Get Role tương ứng
-    //getRole();
+    getRole();
   }, []);
 
   const getRole = async () => {
@@ -364,7 +364,7 @@ function CourseDetail() {
             </div>
           </div>
         </div>
-        <div className="control-panel col-lg-8">{renderControlPanel()}</div>
+        <div className="control-panel col-lg-4">{renderControlPanel()}</div>
       </div>
     </div>
   );
