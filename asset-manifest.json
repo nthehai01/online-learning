@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/online-learning/static/css/main.35a04667.chunk.css",
+    "main.js": "/online-learning/static/js/main.0b692542.chunk.js",
+    "main.js.map": "/online-learning/static/js/main.0b692542.chunk.js.map",
+    "runtime-main.js": "/online-learning/static/js/runtime-main.2ed53a84.js",
+    "runtime-main.js.map": "/online-learning/static/js/runtime-main.2ed53a84.js.map",
+    "static/css/2.35eb359a.chunk.css": "/online-learning/static/css/2.35eb359a.chunk.css",
+    "static/js/2.86cc4bce.chunk.js": "/online-learning/static/js/2.86cc4bce.chunk.js",
+    "static/js/2.86cc4bce.chunk.js.map": "/online-learning/static/js/2.86cc4bce.chunk.js.map",
+    "static/js/3.9635fcda.chunk.js": "/online-learning/static/js/3.9635fcda.chunk.js",
+    "static/js/3.9635fcda.chunk.js.map": "/online-learning/static/js/3.9635fcda.chunk.js.map",
+    "index.html": "/online-learning/index.html",
+    "static/css/2.35eb359a.chunk.css.map": "/online-learning/static/css/2.35eb359a.chunk.css.map",
+    "static/css/main.35a04667.chunk.css.map": "/online-learning/static/css/main.35a04667.chunk.css.map",
+    "static/js/2.86cc4bce.chunk.js.LICENSE.txt": "/online-learning/static/js/2.86cc4bce.chunk.js.LICENSE.txt",
+    "static/media/bootstrap-icons.css": "/online-learning/static/media/bootstrap-icons.38c4d249.woff",
+    "static/media/Form.css": "/online-learning/static/media/login_background.7ffeb9a8.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2ed53a84.js",
+    "static/css/2.35eb359a.chunk.css",
+    "static/js/2.86cc4bce.chunk.js",
+    "static/css/main.35a04667.chunk.css",
+    "static/js/main.0b692542.chunk.js"
+  ]
+}
