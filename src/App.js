@@ -53,7 +53,7 @@ import CourseHistoryPage from "./pages/CourseHistoryPage";
 import CourseCreatePage from "./pages/CourseCreatePage";
 import "@progress/kendo-theme-default/dist/all.css";
 import "./App.css";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 
 import Form from "./components/Signup_to_login/Form"; //Form - Signup page, Signup success -> login page
 import Sign_up_form from "./components/SignUp/Form_Signup"; // Signup page
@@ -65,7 +65,7 @@ import CourseDetail from "./components/CourseDetail/courseDetail";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div>
         <MainNavigation />
         <div className="ml-4">
@@ -81,7 +81,7 @@ function App() {
           </Routes>
         </div>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
