@@ -1,5 +1,5 @@
 {
-  "homepage": "https://nthehai01.github.io/online-learning",
+  "homepage": "https://e-learning.software",
   "name": "client",
   "version": "0.1.0",
   "private": true,
@@ -40,7 +40,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "npm run build && gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
