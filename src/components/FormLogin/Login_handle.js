@@ -36,6 +36,7 @@ const Handle_login = (validate) => {
             console.log(res);
             LocalStorageUtils.setUser(res.data.content);
             LocalStorageUtils.setToken(res.data.content.accessToken);
+            window.location.reload();
           })
           .catch((e) => {
             login.mes = "Username/password is not match";

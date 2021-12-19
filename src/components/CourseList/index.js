@@ -29,9 +29,6 @@ const CourseList = (props) => {
       })
       .then(() => setIsLoading(false));
   };
-  if (LocalStorageUtils.getUser() === null) {
-    return <Navigate to="/form-login" />;
-  }
   const enteredSearchTextChangeHandler = (event) => {
     setEnteredSearchText(event.target.value);
   };

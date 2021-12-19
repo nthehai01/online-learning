@@ -23,9 +23,8 @@ const FormUserEdit = () => {
         <h1> CHANGE INFORMATION </h1>
         <div className="form-inputs">
           <label className="label-form">
-            {" "}
             <b> Fullname: {LocalStorageUtils.getUser().fullName}</b>
-          </label>{" "}
+          </label>
           <br />
           <input
             type="text"
@@ -33,7 +32,7 @@ const FormUserEdit = () => {
             value={State.fullname}
             onChange={handleChange}
             placeholder="leave blank if you don't want to change it"
-          />{" "}
+          />
           <br />
           {error_message.fullname && <p> {error_message.fullname} </p>}
         </div>
@@ -63,30 +62,28 @@ const FormUserEdit = () => {
             value={State.email}
             onChange={handleChange}
             placeholder="leave blank if you don't want to change it"
-          />{" "}
+          />
           <br />
           {error_message.email && <p> {error_message.email} </p>}
         </div>
         <div className="form-inputs">
           <label className="label-form">
-            {" "}
-            <b> Picture: </b>{" "}
-          </label>{" "}
+            <b> Picture: </b>
+          </label>
           <br />
           <input
             name="picture"
             value={State.picture}
             onChange={handleChange}
             placeholder="leave blank if you don't want to change it"
-          />{" "}
+          />
           <br />
           {error_message.picture && <p> {error_message.picture} </p>}
         </div>
         <div className="form-inputs">
           <button className="form-input-button" type="submit">
-            {" "}
-            Submit{" "}
-          </button>{" "}
+            Submit
+          </button>
           <br />
           {pass.info && <p> {pass.info} </p>}
         </div>
@@ -96,9 +93,8 @@ const FormUserEdit = () => {
         <h1> CHANGE PASSWORD </h1>
         <div className="form-inputs">
           <label className="label-form">
-            {" "}
-            <b> Current Password </b>{" "}
-          </label>{" "}
+            <b> Current Password </b>
+          </label>
           <br />
           <input
             type="password"
@@ -106,7 +102,7 @@ const FormUserEdit = () => {
             value={State.currentPassword}
             onChange={handleChange}
             placeholder="Enter your password"
-          />{" "}
+          />
           <br />
           {error_message.currentPassword && (
             <p> {error_message.currentPassword} </p>
@@ -114,9 +110,8 @@ const FormUserEdit = () => {
         </div>
         <div className="form-inputs">
           <label className="label-form">
-            {" "}
-            <b> New Password </b>{" "}
-          </label>{" "}
+            <b> New Password </b>
+          </label>
           <br />
           <input
             type="password"
@@ -124,15 +119,14 @@ const FormUserEdit = () => {
             value={State.newPassword}
             onChange={handleChange}
             placeholder="Enter your new password"
-          />{" "}
+          />
           <br />
           {error_message.newPassword && <p> {error_message.newPassword} </p>}
         </div>
         <div className="form-inputs">
           <button className="form-input-button" type="submit">
-            {" "}
-            Submit{" "}
-          </button>{" "}
+            Submit
+          </button>
           <br />
           {pass.error && <p> {pass.error} </p>}
         </div>
@@ -143,16 +137,14 @@ const FormUserEdit = () => {
 
         <div className="form-inputs">
           <label className="label-form">
-            {" "}
-            <b> Are you a teacher? </b>{" "}
-          </label>{" "}
+            <b> Are you a teacher? </b>
+          </label>
           <br />
         </div>
         <div className="form-inputs">
           <button className="form-input-button" type="submit">
-            {" "}
-            Yes{" "}
-          </button>{" "}
+            Yes
+          </button>
           <br />
           {pass.role && <p> {pass.role} </p>}
         </div>

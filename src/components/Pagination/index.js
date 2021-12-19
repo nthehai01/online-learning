@@ -54,7 +54,7 @@ export default class Pagination extends React.Component {
       <>
         <div>{renderTodos} </div>
         <div className="clrfloat"></div>
-        <nav aria-label="Page navigation example">
+        <nav aria-label="Nav">
           <ul className="pagination justify-content-center">
             {renderPageNumbers}
           </ul>

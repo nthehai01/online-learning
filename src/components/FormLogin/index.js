@@ -35,9 +35,8 @@ const FormLogin = () => {
         </div>
         <div className="form-inputs">
           <label className="label-form">
-            {" "}
-            <b> Password </b>{" "}
-          </label>{" "}
+            <b> Password </b>
+          </label>
           <br />
           <input
             type="password"
@@ -45,15 +44,14 @@ const FormLogin = () => {
             value={State.password}
             onChange={handleChange}
             placeholder="Enter your password"
-          />{" "}
+          />
           <br />
           {error_message.password && <p> {error_message.password} </p>}
         </div>
         <div className="form-inputs">
           <button className="form-input-button" type="submit">
-            {" "}
-            Login{" "}
-          </button>{" "}
+            Login
+          </button>
           <br />
           {login.mes && <p> {login.mes} </p>}
         </div>

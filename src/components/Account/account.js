@@ -4,6 +4,7 @@ import "./account.css";
 import { get, post, put } from "../../utils/ApiCaller";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
 import { Navigate } from "react-router-dom";
+import CourseCard from "../CourseCard";
 
 function AccountManagemnt() {
   const [username, setUsername] = useState("");
@@ -106,42 +107,16 @@ function AccountManagemnt() {
         </div>
 
         <div className="card-wrapper">
-          {listCourses.map((course, index) => {
-            return (
-              <div className="card mt-4" key={index}>
-                <img
-                  className="card-img-top"
-                  src={course.picture}
-                  alt="Card image"
-                />
-                <div className="card-body">
-                  <h3 className="card-title">{course.courseName}</h3>
-                  <h4 className="card-text">{course.description}</h4>
-                  <p className="card-text">
-                    <b>Tutor:</b> {course.tutor}
-                  </p>
-                  <p className="card-text">
-                    <b>Time start:</b> {course.starting}
-                  </p>
-                  <p className="card-text">
-                    <b>Time end:</b> {course.ending}
-                  </p>
-                  <p className="card-text">
-                    <b>Day:</b> {course.day}
-                  </p>
-                  {/* <a href="/course" className="btn btn-primary">
-                    See Detail
-                  </a> */}
-                </div>
-              </div>
-            );
+          {listCourses.map((course) => {
+            return <CourseCard dat={course} key={course._id} />;
           })}
         </div>
+        <div className="clrfloat"></div>
 
         <div className="row mt-4 button-handle">
           <form className="mt-4">
             <div className="form-group">
-              <label for="amount">Input your money to pay</label>
+              <label for="amount">Top Up Here</label>
               <input type="number" className="form-control mt-2" id="amount" />
             </div>
             <button

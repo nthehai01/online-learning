@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import LocalStorageUtils from "../../utils/LocalStorageUtils";
 import "./MainNavigation.css";
 const MainNavigation = () => {
+  const [user, setUser] = useState();
+  useEffect(() => {
+    setUser(LocalStorageUtils.getUser());
+  }, [user]);
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -51,24 +56,30 @@ const MainNavigation = () => {
               </li>
             </ul>
             <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link
-                  to="/form-signuptologin"
-                  className="nav-link active"
-                  aria-current="page"
-                >
-                  SignUp
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  to="/form-login"
-                  className="nav-link active"
-                  aria-current="page"
-                >
-                  Login
-                </Link>
-              </li>
+              {user === null ? (
+                <>
+                  <li className="nav-item">
+                    <Link
+                      to="/form-signuptologin"
+                      className="nav-link active"
+                      aria-current="page"
+                    >
+                      SignUp
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      to="/form-login"
+                      className="nav-link active"
+                      aria-current="page"
+                    >
+                      Login
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <></>
+              )}
               <li className="nav-item">
                 <Link
                   to="/my-account"

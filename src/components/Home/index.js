@@ -14,7 +14,7 @@ function Home() {
               <div className="content__left-side-btn-wrapper">
                 <a
                   className="content__left-side-btn btn btn-primary"
-                  href=""
+                  href="/#/course-list"
                   role="button"
                 >
                   Get Started
