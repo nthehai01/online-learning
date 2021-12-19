@@ -1,0 +1,15 @@
+footer{
+    background-color:#f8f9fa;
+    width: 100%;
+    margin-top: 50px;
+    padding: 10px 0;
+}
+
+footer p{
+    text-align: center;
+    margin: 0;
+}
+
+footer hr{
+    color:#babec0;
+}

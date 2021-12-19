@@ -1,4 +1,3 @@
-import GoogleLogin from "./components/GoogleLogin";
 import React, { useState } from "react";
 import { Routes, Route, HashRouter } from "react-router-dom";
 import MainNavigation from "./components/layout/MainNavigation";
@@ -8,6 +7,7 @@ import CourseCreatePage from "./pages/CourseCreatePage";
 import "@progress/kendo-theme-default/dist/all.css";
 import "./App.css";
 import Account from "./components/Account/account";
+import Footer from './components/Footer';
 //Phuc
 import FormSignUpToLoginPage from "./pages/FormSignUpToLoginPage";
 import FormLoginPage from "./pages/FormLoginPage";
@@ -16,6 +16,7 @@ import FormUserEditPage from "./pages/FormUserEditPage";
 import CourseDetailPage from "./pages/CourseDetailPage";
 
 import HomePage from "./pages/HomePage";
+
 function App() {
   return (
     <HashRouter>
@@ -42,6 +43,7 @@ function App() {
           </Routes>
         </div>
       </div>
+      <Footer />
     </HashRouter>
   );
 }

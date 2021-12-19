@@ -2,6 +2,7 @@ import React from "react"
 import GoogleLogin from "react-google-login";
 import localStorageUtils from "../../utils/LocalStorageUtils";
 import { post } from "../../utils/ApiCaller";
+import './style.css'
 
 const GoogleSignIn = () => {
     const googleSuccess = async (res) => {
@@ -26,11 +27,15 @@ const GoogleSignIn = () => {
         console.log('Google failure')
     }
 
-    return <GoogleLogin
-        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-        onSuccess={googleSuccess}
-        onFailure={googleFailure}
-        cookiePolicy={"single_host_origin"}
-    />
+    return (
+        <div className="google-login-container">
+            <GoogleLogin
+                clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                onSuccess={googleSuccess}
+                onFailure={googleFailure}
+                cookiePolicy={"single_host_origin"}
+            />
+        </div>
+    )
 }
 export default GoogleSignIn;
