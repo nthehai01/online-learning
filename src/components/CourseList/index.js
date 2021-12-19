@@ -4,6 +4,8 @@ import CourseCard from "../CourseCard";
 import { get } from "../../utils/ApiCaller";
 import { CircularProgress } from "@mui/material";
 import Pagination from "../Pagination";
+import { Navigate } from "react-router-dom";
+import LocalStorageUtils from "../../utils/LocalStorageUtils";
 
 const CourseList = (props) => {
   const [enteredSearchText, setEnteredSearchText] = useState("");
@@ -27,6 +29,9 @@ const CourseList = (props) => {
       })
       .then(() => setIsLoading(false));
   };
+  if (LocalStorageUtils.getUser() === null) {
+    return <Navigate to="/form-login" />;
+  }
   const enteredSearchTextChangeHandler = (event) => {
     setEnteredSearchText(event.target.value);
   };

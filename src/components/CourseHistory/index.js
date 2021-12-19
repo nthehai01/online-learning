@@ -4,19 +4,23 @@ import CourseHistoryFilter from "./CourseHistoryFilter";
 import { CircularProgress } from "@mui/material";
 import CourseTable from "./CourseTable";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
+import { Navigate } from "react-router-dom";
 const CourseHistory = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [dataContent, setDataContent] = useState([]);
   const [filteredText, setFilteredText] = useState("all");
   useEffect(() => {
     setIsLoading(true);
+    if (LocalStorageUtils.getUser() === null) return;
     get("/api/joining/my-joining", {
       username: LocalStorageUtils.getUser().username,
     })
       .then((res) => setDataContent(res.data.content))
       .then(() => setIsLoading(false));
   }, []);
-
+  if (LocalStorageUtils.getUser() === null) {
+    return <Navigate to="/form-login" />;
+  }
   const filterChangeHandler = (selectedYear) => {
     setFilteredText(selectedYear);
   };

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./courseDetail.css";
 import { get, post, put, remove } from "../../utils/ApiCaller";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
-import { useParams, useRouteMatch } from "react-router-dom";
+import { Navigate, useParams, useRouteMatch } from "react-router-dom";
 
 function CourseDetail() {
   const [courseName, setCourseName] = useState("");
@@ -74,7 +74,9 @@ function CourseDetail() {
     // Get Role tương ứng
     getRole();
   }, []);
-
+  if (LocalStorageUtils.getUser() === null) {
+    return <Navigate to="/form-login" />;
+  }
   const getRole = async () => {
     const user = LocalStorageUtils.getUser();
     if (user !== null) setRole(user.role);

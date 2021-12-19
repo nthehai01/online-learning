@@ -18,6 +18,7 @@ import {
   Typography,
 } from "@mui/material";
 import MultipleSelectCheckmarks from "./MultipleSelectCheckmarks";
+import { Navigate } from "react-router-dom";
 
 const CourseCreate = (props) => {
   const courseName = useRef("");
@@ -70,7 +71,7 @@ const CourseCreate = (props) => {
   useEffect(() => {
     setIsLoading(true);
     get("/api/courses/my-courses", {
-      username: LocalStorageUtils.getUser().username,
+      username: LocalStorageUtils.getUser()?.username,
     })
       .then((res) => setDataContent(res.data.content))
       .then(() => setIsLoading(false));
@@ -78,7 +79,12 @@ const CourseCreate = (props) => {
   const setCourseWeekday = (value) => {
     courseWeekday = value;
   };
-
+  if (LocalStorageUtils.getUser() === null) {
+    return <Navigate to="/form-login" />;
+  }
+  if (LocalStorageUtils.getUser().role !== "tutor") {
+    return <div className="ml-2 mt-2">You are not a tutor!</div>;
+  }
   const style = {
     position: "absolute",
     top: "50%",

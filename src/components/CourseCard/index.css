@@ -1,5 +1,5 @@
 .cardCourse {
-  width: 28%;
+  width: 28% !important;
   display: inline-block;
   float: left;
   height: 350px;

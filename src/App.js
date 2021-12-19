@@ -1,5 +1,5 @@
 import GoogleLogin from "./components/GoogleLogin";
-
+import React, { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import MainNavigation from "./components/layout/MainNavigation";
 import CourseListPage from "./pages/CourseListPage";
@@ -19,22 +19,6 @@ import CourseDetailPage from "./pages/CourseDetailPage";
 
 import HomePage from "./pages/HomePage";
 function App() {
-  let routeneedlogin = <Navigate to="/login" />;
-  if (LocalStorageUtils.getUser() !== null)
-    routeneedlogin = (
-      <>
-        <Route path="/course-history" element={<CourseHistoryPage />} />
-        <Route path="/course-create" element={<CourseCreatePage />} />
-      </>
-    );
-  else {
-    routeneedlogin = (
-      <>
-        <Route path="/course-history" element={<Navigate to="/formlogin" />} />
-        <Route path="/course-create" element={<Navigate to="/formlogin" />} />
-      </>
-    );
-  }
   return (
     <BrowserRouter>
       <div>
@@ -43,7 +27,9 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/course-list" element={<CourseListPage />} />
-            {routeneedlogin}
+            <Route path="/course-history" element={<CourseHistoryPage />} />
+            <Route path="/course-create" element={<CourseCreatePage />} />
+
             {/*phuc*/}
             <Route
               path="/form-signuptologin"

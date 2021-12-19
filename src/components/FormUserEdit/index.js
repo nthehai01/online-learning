@@ -1,6 +1,7 @@
 import React from "react";
 import Validate_edit from "./edit_validate";
 import Handle_edit_user_infor from "./edit_hande";
+import LocalStorageUtils from "../../utils/LocalStorageUtils";
 
 const FormUserEdit = () => {
   const {
@@ -14,6 +15,7 @@ const FormUserEdit = () => {
   } = Handle_edit_user_infor(Validate_edit);
   // const user2_Ed = storage.getUser();
   // if (!user2_Ed){user2_Ed=""}
+  console.log(State);
   return (
     <div className="form-content mx-auto">
       <form onSubmit={handlechangeinform} className="form-container" noValidate>
@@ -22,7 +24,7 @@ const FormUserEdit = () => {
         <div className="form-inputs">
           <label className="label-form">
             {" "}
-            <b> Fullname </b>
+            <b> Fullname: {LocalStorageUtils.getUser().fullName}</b>
           </label>{" "}
           <br />
           <input
@@ -30,39 +32,37 @@ const FormUserEdit = () => {
             name="fullname"
             value={State.fullname}
             onChange={handleChange}
-            placeholder="Enter your fullname"
+            placeholder="leave blank if you don't want to change it"
           />{" "}
           <br />
           {error_message.fullname && <p> {error_message.fullname} </p>}
         </div>
         <div className="form-inputs">
           <label className="label-form">
-            {" "}
-            <b> Phone </b>{" "}
-          </label>{" "}
+            <b> Phone : {LocalStorageUtils.getUser().phone}</b>
+          </label>
           <br />
           <input
             type="text"
             name="phone"
             value={State.phone}
             onChange={handleChange}
-            placeholder="Enter your phone"
-          />{" "}
+            placeholder="leave blank if you don't want to change it"
+          />
           <br />
           {error_message.phone && <p> {error_message.phone} </p>}
         </div>
         <div className="form-inputs">
           <label className="label-form">
-            {" "}
-            <b> Email </b>{" "}
-          </label>{" "}
+            <b> Email : {LocalStorageUtils.getUser().email}</b>
+          </label>
           <br />
           <input
             type="email"
             name="email"
             value={State.email}
             onChange={handleChange}
-            placeholder="Enter your email"
+            placeholder="leave blank if you don't want to change it"
           />{" "}
           <br />
           {error_message.email && <p> {error_message.email} </p>}
@@ -77,7 +77,7 @@ const FormUserEdit = () => {
             name="picture"
             value={State.picture}
             onChange={handleChange}
-            placeholder="Paste link your picture"
+            placeholder="leave blank if you don't want to change it"
           />{" "}
           <br />
           {error_message.picture && <p> {error_message.picture} </p>}
@@ -123,7 +123,7 @@ const FormUserEdit = () => {
             name="newPassword"
             value={State.newPassword}
             onChange={handleChange}
-            placeholder="Enter your confirmpassword"
+            placeholder="Enter your new password"
           />{" "}
           <br />
           {error_message.newPassword && <p> {error_message.newPassword} </p>}

@@ -3,6 +3,7 @@ import "./account.css";
 
 import { get, post, put } from "../../utils/ApiCaller";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
+import { Navigate } from "react-router-dom";
 
 function AccountManagemnt() {
   const [username, setUsername] = useState("");
@@ -25,10 +26,10 @@ function AccountManagemnt() {
     // Get User + Course List -- OK
 
     const user = LocalStorageUtils.getUser();
-    const username = user.username;
+    const username = user?.username;
     setUsername(username);
     get("/api/enrolling/my-enrollment?username=" + { username }, {
-      username: user.username,
+      username: user?.username,
     }).then((res) => {
       setListCourses(res.data.content);
     });
@@ -45,16 +46,21 @@ function AccountManagemnt() {
   //     }
   //   );
   // };
-
+  if (LocalStorageUtils.getUser() === null) {
+    return <Navigate to="/form-login" />;
+  }
   const handlePayIn = (req) => {
     LocalStorageUtils.getToken();
     const user = LocalStorageUtils.getUser();
     const amount = document.querySelector("#amount").value;
-    put("/api/user/top-up", { username: user.username, amount: amount }).then(
+    put("/api/user/top-up", { username: user?.username, amount: amount }).then(
       (res) => alert(res.data.message)
     );
   };
-
+  const logOut = () => {
+    LocalStorageUtils.clear();
+    window.location.reload();
+  };
   return (
     <div className="content-wrapper">
       <div className="container">
@@ -62,9 +68,12 @@ function AccountManagemnt() {
           <div className="col-lg-12">
             <div className="account-info-wrapper">
               <h3 className="account-heading">Account</h3>
-              <a className="sign-out-link btn-sm btn-primary" href="">
+              <button
+                className="sign-out-link btn-sm btn-primary"
+                onClick={logOut}
+              >
                 Sign Out
-              </a>
+              </button>
             </div>
           </div>
         </div>

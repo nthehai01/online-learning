@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Validate from "./login_validate";
 import Handle_login from "./Login_handle";
 import GoogleSignIn from "../GoogleLogin";
+import { Navigate } from "react-router-dom";
+import LocalStorageUtils from "../../utils/LocalStorageUtils";
 const FormLogin = () => {
   const { handleChange, handlesubmit, State, error_message, login } =
     Handle_login(Validate);
+  //thang them vao
+  const [loginn, setLoginn] = useState(login);
+  if (LocalStorageUtils.getUser() !== null) {
+    return <Navigate to="/" />;
+  }
+  //done
 
   return (
     <div className="form-content mx-auto">
@@ -12,9 +20,8 @@ const FormLogin = () => {
         <h1> Login </h1>
         <div className="form-inputs">
           <label className="label-form">
-            {" "}
-            <b> Username </b>{" "}
-          </label>{" "}
+            <b> Username </b>
+          </label>
           <br />
           <input
             type="text"
@@ -22,7 +29,7 @@ const FormLogin = () => {
             value={State.username}
             onChange={handleChange}
             placeholder="Enter your username"
-          />{" "}
+          />
           <br />
           {error_message.username && <p> {error_message.username} </p>}
         </div>
