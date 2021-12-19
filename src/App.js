@@ -1,14 +1,12 @@
 import GoogleLogin from "./components/GoogleLogin";
 import React, { useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import MainNavigation from "./components/layout/MainNavigation";
 import CourseListPage from "./pages/CourseListPage";
 import CourseHistoryPage from "./pages/CourseHistoryPage";
 import CourseCreatePage from "./pages/CourseCreatePage";
 import "@progress/kendo-theme-default/dist/all.css";
 import "./App.css";
-import { BrowserRouter } from "react-router-dom";
-import LocalStorageUtils from "./utils/LocalStorageUtils";
 import Account from "./components/Account/account";
 //Phuc
 import FormSignUpToLoginPage from "./pages/FormSignUpToLoginPage";
@@ -20,7 +18,7 @@ import CourseDetailPage from "./pages/CourseDetailPage";
 import HomePage from "./pages/HomePage";
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div>
         <MainNavigation />
         <div className="ml-4">
@@ -44,7 +42,7 @@ function App() {
           </Routes>
         </div>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

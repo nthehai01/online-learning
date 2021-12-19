@@ -58,7 +58,7 @@ const CourseCard = (props) => {
             </div>
             <div className="col-4">
               <a
-                href={"/course/" + dataDetail.slug}
+                href={"/#/course/" + dataDetail.slug}
                 className="btn btn-primary mt-2 mb-1 text-right d-flex align-items-center justify-content-center"
               >
                 DETAIL

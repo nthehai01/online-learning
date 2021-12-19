@@ -149,7 +149,7 @@ function CourseDetail() {
     const user = LocalStorageUtils.getUser();
     post("/api/enrolling/enroll", { course: courseID, username: user.username })
       .then((res) => alert(res.data.message))
-      .catch((err) => console.log(err.response));
+      .catch((err) => alert(err.response.data.message));
   };
 
   const joiningCourse = () => {
@@ -328,7 +328,6 @@ function CourseDetail() {
       </React.Fragment>
     );
   };
-
   return (
     <div className="container">
       <div className="row">
@@ -353,7 +352,7 @@ function CourseDetail() {
               <p className="card-text">
                 <b>Day:</b>
                 {listDay.map((day) => {
-                  return <p>{day}</p>;
+                  return <div>{day}</div>;
                 })}
               </p>
               {/* <p className="card-text">

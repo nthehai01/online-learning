@@ -54,7 +54,12 @@ function AccountManagemnt() {
     const user = LocalStorageUtils.getUser();
     const amount = document.querySelector("#amount").value;
     put("/api/user/top-up", { username: user?.username, amount: amount }).then(
-      (res) => alert(res.data.message)
+      (res) => {
+        alert(res.data.message);
+        user.balance += parseInt(amount);
+        LocalStorageUtils.setUser(user);
+        console.log("amount", amount);
+      }
     );
   };
   const logOut = () => {
@@ -84,7 +89,7 @@ function AccountManagemnt() {
               <h3 className="account-password-heading">Hi, {username}</h3>
               <a
                 className="account-management-link btn btn-primary btn-sm"
-                href="/form-edit"
+                href="/#/form-edit"
               >
                 AccountManagemnt
               </a>
