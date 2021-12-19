@@ -50,6 +50,35 @@ const MainNavigation = () => {
                 </Link>
               </li>
             </ul>
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <Link
+                  to="/form-signuptologin"
+                  className="nav-link active"
+                  aria-current="page"
+                >
+                  SignUp
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  to="/form-login"
+                  className="nav-link active"
+                  aria-current="page"
+                >
+                  Login
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  to="/my-account"
+                  className="nav-link active"
+                  aria-current="page"
+                >
+                  MyAccount
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
       </nav>

@@ -77,8 +77,7 @@ function CourseDetail() {
 
   const getRole = async () => {
     const user = LocalStorageUtils.getUser();
-    const role = user.role;
-    setRole(role);
+    if (user !== null) setRole(user.role);
   };
 
   // OK

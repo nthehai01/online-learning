@@ -1,87 +1,64 @@
 import GoogleLogin from "./components/GoogleLogin";
 
-// Router của Bảooo
-// import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-// import React from "react";
-// import "./App.css";
-// import Home from "./components/Home/home";
-// import CourseDetail from "./components/CourseDetail/courseDetail";
-// import AccountManagment from "./components/Account/account";
-// import Header from "./components/Header";
-
-// function App() {
-//   return (
-//     <Router>
-//       <div>
-//         {/* <nav>
-//           <ul>
-//             <li>
-//               <Link to="/">Home</Link>
-//             </li>
-//             <li>
-//               <Link to="/account">Account</Link>
-//             </li>
-//             <li>
-//               <Link to="/course">Course</Link>
-//             </li>
-//           </ul>
-//         </nav> */}
-
-//         <Header />
-
-//         {/* A <Switch> looks through its children <Route>s and
-//       renders the first one that matches the current URL. */}
-//         <Switch>
-//           <Route path="/user">
-//             <AccountManagment />
-//           </Route>
-//           <Route path="/course/:courseID">
-//             <CourseDetail />
-//           </Route>
-//           <Route path="/">
-//             <Home />
-//           </Route>
-//         </Switch>
-//       </div>
-//     </Router>
-//   )}
-
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import MainNavigation from "./components/layout/MainNavigation";
 import CourseListPage from "./pages/CourseListPage";
 import CourseHistoryPage from "./pages/CourseHistoryPage";
 import CourseCreatePage from "./pages/CourseCreatePage";
 import "@progress/kendo-theme-default/dist/all.css";
 import "./App.css";
-import { BrowserRouter, HashRouter } from "react-router-dom";
-
-import Form from "./components/Signup_to_login/Form"; //Form - Signup page, Signup success -> login page
-import Sign_up_form from "./components/SignUp/Form_Signup"; // Signup page
-import Login_form from "./components/Login/Form_login"; // Login page
-import User_edit from "./components/edit_profile/edit_user_infor"; // account management page
-
+import { BrowserRouter } from "react-router-dom";
+import LocalStorageUtils from "./utils/LocalStorageUtils";
 import Account from "./components/Account/account";
-import CourseDetail from "./components/CourseDetail/courseDetail";
+//Phuc
+import FormSignUpToLoginPage from "./pages/FormSignUpToLoginPage";
+import FormLoginPage from "./pages/FormLoginPage";
+import FormUserEditPage from "./pages/FormUserEditPage";
+//Bao
+import CourseDetailPage from "./pages/CourseDetailPage";
 
+import HomePage from "./pages/HomePage";
 function App() {
+  let routeneedlogin = <Navigate to="/login" />;
+  if (LocalStorageUtils.getUser() !== null)
+    routeneedlogin = (
+      <>
+        <Route path="/course-history" element={<CourseHistoryPage />} />
+        <Route path="/course-create" element={<CourseCreatePage />} />
+      </>
+    );
+  else {
+    routeneedlogin = (
+      <>
+        <Route path="/course-history" element={<Navigate to="/formlogin" />} />
+        <Route path="/course-create" element={<Navigate to="/formlogin" />} />
+      </>
+    );
+  }
   return (
-    <HashRouter>
+    <BrowserRouter>
       <div>
         <MainNavigation />
         <div className="ml-4">
           <Routes>
-            <Route path="/" element={<CourseListPage />} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/course-list" element={<CourseListPage />} />
-            <Route path="/course-history" element={<CourseHistoryPage />} />
-            <Route path="/course-create" element={<CourseCreatePage />} />
+            {routeneedlogin}
+            {/*phuc*/}
+            <Route
+              path="/form-signuptologin"
+              element={<FormSignUpToLoginPage />}
+            />
+            <Route path="/form-login" element={<FormLoginPage />} />
+            <Route path="/form-edit" element={<FormUserEditPage />} />
 
             {/* Bảo thêm dô đoạn này  */}
-            <Route path="/account" element={<Account />} />
-            <Route path="/course/:courseID" element={<CourseDetail />} />
+            <Route path="/my-account" element={<Account />} />
+            <Route path="/course/:courseID" element={<CourseDetailPage />} />
           </Routes>
         </div>
       </div>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 

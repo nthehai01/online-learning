@@ -75,7 +75,7 @@ function AccountManagemnt() {
               <h3 className="account-password-heading">Hi, {username}</h3>
               <a
                 className="account-management-link btn btn-primary btn-sm"
-                href=""
+                href="/form-edit"
               >
                 AccountManagemnt
               </a>
