@@ -127,9 +127,15 @@ function CourseDetail() {
       .then((res) => {
         const zoomHostLink = res.data.content.zoomHostLink;
         const zoomLink = res.data.content.zoomLink;
-        if (document.querySelector(".zoomLinkContent"))
+        if (
+          document.querySelector(".zoomLinkContent").value !==
+          "User has not enrolled this course"
+        )
           document.querySelector(".zoomLinkContent").innerHTML = zoomHostLink;
-        if (document.querySelector(".zoomLinkContentStudent"))
+        if (
+          document.querySelector(".zoomLinkContentStudent").value !==
+          "User has not enrolled this course"
+        )
           document.querySelector(".zoomLinkContentStudent").innerHTML =
             zoomLink;
       })
