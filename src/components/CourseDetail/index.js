@@ -141,7 +141,7 @@ function CourseDetail() {
     LocalStorageUtils.getToken();
     put("/api/enrolling/get-credit", { course: courseID })
       .then((res) => alert(res.data.message))
-      .catch((err) => console.log(err.response));
+      .catch((err) => alert(err.response.data.message));
   };
 
   // Student
@@ -161,8 +161,9 @@ function CourseDetail() {
       })
       .catch((err) => {
         console.log(err.response);
-        document.querySelector(".zoomLinkContentStudent").innerHTML =
-          err.response.data.message;
+        // document.querySelector(".zoomLinkContentStudent").innerHTML =
+        //   err.response.data.message;
+        alert(err.response.data.message);
       });
   };
 
