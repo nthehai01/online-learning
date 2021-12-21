@@ -11,19 +11,6 @@ function AccountManagemnt() {
   const [listCourses, setListCourses] = useState([]);
 
   useEffect(() => {
-    // get("/api/enrolling/my-enrollment?username=david").then((res) => {
-    //   setListCourses(res.data.content);
-    // });
-
-    // Test đăng nhập thử
-
-    post("/api/user/login", { username: "john", password: "123456" }).then(
-      (res) => {
-        LocalStorageUtils.setUser(res.data.content);
-        LocalStorageUtils.setToken(res.data.content.accessToken);
-      }
-    );
-
     // Get User + Course List -- OK
 
     const user = LocalStorageUtils.getUser();
@@ -34,22 +21,13 @@ function AccountManagemnt() {
       username: user.username,
     })
       .then((res) => {
-        if (res.data.content[0] !== null) setListCourses(res.data.content);
+        if (res.data.content !== null) {
+          setListCourses(res.data.content);
+        }
       })
       .catch(console.error());
   }, []);
 
-  // OK
-  // const handleChangeRole = async () => {
-  //   const accessToken = LocalStorageUtils.getToken();
-  //   const user = LocalStorageUtils.getUser();
-
-  //   put("/api/user/become-tutor", { username: user.username }, {}).then(
-  //     (res) => {
-  //       alert(res.data.message);
-  //     }
-  //   );
-  // };
   if (LocalStorageUtils.getUser() === null) {
     return <Navigate to="/form-login" />;
   }
@@ -73,9 +51,9 @@ function AccountManagemnt() {
   return (
     <div className="content-wrapper">
       <div className="container">
-        <div className="row">
+        <div className="row border-bottom">
           <div className="col-lg-12">
-            <div className="account-info-wrapper">
+            <div className="account-info-wrapper mb-4">
               <h3 className="account-heading">Account</h3>
               <button
                 className="sign-out-link btn-sm btn-primary"
@@ -87,9 +65,9 @@ function AccountManagemnt() {
           </div>
         </div>
 
-        <div className="row">
+        <div className="row border-bottom">
           <div className="col-lg-12">
-            <div className="account-password-container">
+            <div className="account-password-container mb-4 mt-4">
               <h3 className="account-password-heading">Hi, {username}</h3>
               <a
                 className="account-management-link btn btn-primary btn-sm"
@@ -110,21 +88,21 @@ function AccountManagemnt() {
         </div>
 
         <div className="card-wrapper">
-          {listCourses.map((course) => {
-            return <CourseCard dat={course} key={course._id} />;
+          {listCourses.map((course, index) => {
+            return <CourseCard dat={course} key={index} />;
           })}
         </div>
         <div className="clrfloat"></div>
 
         <div className="row mt-4 button-handle">
-          <form className="mt-4">
+          <form className="mt-4 topup-wrapper">
             <div className="form-group">
               <label for="amount">Top Up Here</label>
               <input type="number" className="form-control mt-2" id="amount" />
             </div>
             <button
               type="button"
-              className="btn btn-primary mt-2"
+              className="btn btn-primary mt-4 ml-2"
               onClick={handlePayIn}
             >
               Submit

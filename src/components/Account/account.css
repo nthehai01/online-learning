@@ -113,6 +113,12 @@
   height: 54px;
 }
 
-.form-control {
-  width: 200px;
+.form-group {
+  width: 120px;
+}
+
+.topup-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }

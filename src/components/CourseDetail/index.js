@@ -119,17 +119,23 @@ function CourseDetail() {
   // OK
   const createZoomHostLink = () => {
     LocalStorageUtils.getToken();
-    post("/api/courses/new-meeting", { slug: slug })
-      .then((res) => {
-        const zoomHostLink = res.data.content.zoomHostLink;
-        const zoomLink = res.data.content.zoomLink;
-        if (document.querySelector(".zoomLinkContent"))
-          document.querySelector(".zoomLinkContent").innerHTML = zoomHostLink;
-        if (document.querySelector(".zoomLinkContentStudent"))
-          document.querySelector(".zoomLinkContentStudent").innerHTML =
-            zoomLink;
-      })
-      .catch((err) => console.log(err));
+    const user = LocalStorageUtils.getUser();
+    if (user == null) {
+      alert("Bạn chưa đăng ký/đăng nhập");
+      <Navigate to="/form-login"></Navigate>;
+    } else {
+      post("/api/courses/new-meeting", { slug: slug })
+        .then((res) => {
+          const zoomHostLink = res.data.content.zoomHostLink;
+          const zoomLink = res.data.content.zoomLink;
+          if (document.querySelector(".zoomLinkContent"))
+            document.querySelector(".zoomLinkContent").innerHTML = zoomHostLink;
+          if (document.querySelector(".zoomLinkContentStudent"))
+            document.querySelector(".zoomLinkContentStudent").innerHTML =
+              zoomLink;
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   // OK ----
@@ -143,24 +149,38 @@ function CourseDetail() {
   // Student
   const enrollCourse = () => {
     const user = LocalStorageUtils.getUser();
-    post("/api/enrolling/enroll", { course: courseID, username: user.username })
-      .then((res) => alert(res.data.message))
-      .catch((err) => alert(err.response.data.message));
+    if (user == null) {
+      alert("Chưa đăng nhập, xin mời bạn đăng nhập");
+      <Navigate to="/form-login" />;
+    } else {
+      post("/api/enrolling/enroll", {
+        course: courseID,
+        username: user.username,
+      })
+        .then((res) => alert(res.data.message))
+        .catch((err) => alert(err.response.data.message));
+    }
   };
 
   const joiningCourse = () => {
     const user = LocalStorageUtils.getUser();
-    post("/api/joining/join", { course: courseID, username: user.username })
-      .then((res) => {
-        alert(res.data.message);
-        document.querySelector(".zoomLinkContentStudent").innerHTML = zoomLink;
-      })
-      .catch((err) => {
-        console.log(err.response);
-        // document.querySelector(".zoomLinkContentStudent").innerHTML =
-        //   err.response.data.message;
-        alert(err.response.data.message);
-      });
+    if (user == null) {
+      <Navigate to="/form-login" />;
+      alert("Chưa đăng nhập, xin mời bạn đăng nhập");
+    } else {
+      post("/api/joining/join", { course: courseID, username: user.username })
+        .then((res) => {
+          alert(res.data.message);
+          document.querySelector(".zoomLinkContentStudent").innerHTML =
+            zoomLink;
+        })
+        .catch((err) => {
+          console.log(err.response);
+          // document.querySelector(".zoomLinkContentStudent").innerHTML =
+          //   err.response.data.message;
+          alert(err.response.data.message);
+        });
+    }
   };
 
   // Chỗ này làm có hơi củ chuối
@@ -334,24 +354,7 @@ function CourseDetail() {
             <div className="card-body">
               <h3 className="card-title">{courseName}</h3>
               <p className="card-text">{description}</p>
-              <p className="card-text">
-                <b>Tutor:</b> {tutor}
-              </p>
-              <p className="card-text">
-                <b>Time:</b> {timeStart} - {timeEnd}
-              </p>
-              <p className="card-text">
-                <b>Length :</b> {startingDate} - {endingDate}
-              </p>
-              <p className="card-text">
-                <b>Fee:</b> {fee}
-              </p>
-              <p className="card-text">
-                <b>Day:</b>
-                {listDay.map((day) => {
-                  return <div>{day}</div>;
-                })}
-              </p>
+
               {/* <p className="card-text">
                 <b>Rating:</b>
                 {listRating.map((rating) => {
@@ -360,6 +363,26 @@ function CourseDetail() {
               </p> */}
             </div>
           </div>
+        </div>
+        <div className="card-content col-lg-4 mt-4">
+          <p className="card-text">
+            <b>Tutor:</b> {tutor}
+          </p>
+          <p className="card-text">
+            <b>Time:</b> {timeStart} - {timeEnd}
+          </p>
+          <p className="card-text">
+            <b>Length :</b> {startingDate} - {endingDate}
+          </p>
+          <p className="card-text">
+            <b>Fee:</b> {fee}
+          </p>
+          <p className="card-text">
+            <b>Day:</b>
+            {listDay.map((day) => {
+              return <div>{day}</div>;
+            })}
+          </p>
         </div>
         <div className="control-panel col-lg-4">{renderControlPanel()}</div>
       </div>
