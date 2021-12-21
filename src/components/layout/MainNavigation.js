@@ -6,7 +6,7 @@ const MainNavigation = () => {
   const [user, setUser] = useState();
   useEffect(() => {
     setUser(LocalStorageUtils.getUser());
-  }, [user]);
+  }, []);
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">

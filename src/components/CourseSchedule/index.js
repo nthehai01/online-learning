@@ -15,16 +15,20 @@ const CourseSchedule = (props) => {
   useEffect(() => {
     get("/api/enrolling/my-enrollment", {
       username: LocalStorageUtils.getUser()?.username,
-    }).then((res) => {
-      setCalendarData(
-        buildMap(
-          res.data.content.map(
-            (val) => val.day + " " + val.time.starting + "-" + val.time.ending
-          ),
-          res.data.content.map((val) => val.courseName + " - " + val.tutor)
-        )
-      );
-    });
+    })
+      .then((res) => {
+        if (res.data.content[0] !== null)
+          setCalendarData(
+            buildMap(
+              res.data.content.map(
+                (val) =>
+                  val.day + " " + val.time.starting + "-" + val.time.ending
+              ),
+              res.data.content.map((val) => val.courseName + " - " + val.tutor)
+            )
+          );
+      })
+      .catch(console.error());
   }, []);
 
   return (

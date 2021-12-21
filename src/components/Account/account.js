@@ -27,13 +27,16 @@ function AccountManagemnt() {
     // Get User + Course List -- OK
 
     const user = LocalStorageUtils.getUser();
-    const username = user?.username;
+    if (user === null) return;
+    const username = user.username;
     setUsername(username);
     get("/api/enrolling/my-enrollment?username=" + { username }, {
-      username: user?.username,
-    }).then((res) => {
-      setListCourses(res.data.content);
-    });
+      username: user.username,
+    })
+      .then((res) => {
+        if (res.data.content[0] !== null) setListCourses(res.data.content);
+      })
+      .catch(console.error());
   }, []);
 
   // OK

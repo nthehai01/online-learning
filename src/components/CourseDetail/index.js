@@ -25,7 +25,10 @@ function CourseDetail() {
 
   const { courseID } = useParams();
   console.log({ courseID });
-
+  const getRole = async () => {
+    const user = LocalStorageUtils.getUser();
+    if (user !== null) setRole(user.role);
+  };
   useEffect(() => {
     // get course detail
 
@@ -74,13 +77,6 @@ function CourseDetail() {
     // Get Role tương ứng
     getRole();
   }, []);
-  if (LocalStorageUtils.getUser() === null) {
-    return <Navigate to="/form-login" />;
-  }
-  const getRole = async () => {
-    const user = LocalStorageUtils.getUser();
-    if (user !== null) setRole(user.role);
-  };
 
   // OK
   const editCourseInfo = () => {

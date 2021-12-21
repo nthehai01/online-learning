@@ -3,6 +3,7 @@ import "./index.css";
 import Rating from "@mui/material/Rating";
 const CourseCard = (props) => {
   var dataDetail = props.dat;
+  if (dataDetail === null) return;
   const calStar = (dataDetail) => {
     var avgstar = 0;
     for (let j = 0; j < dataDetail.rating.length; j++) {
