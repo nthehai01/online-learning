@@ -132,3 +132,17 @@
 .no-margin-bottom {
   margin-bottom: 0;
 }
+
+.card.m-4 {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.fee-card-text {
+  color: red;
+  font-weight: 600;
+}
+
+.card-content {
+  font-size: 18px;
+}

@@ -9,6 +9,7 @@ import CourseCard from "../CourseCard";
 function AccountManagemnt() {
   const [username, setUsername] = useState("");
   const [listCourses, setListCourses] = useState([]);
+  const [balance, setBalance] = useState("");
 
   useEffect(() => {
     // Get User + Course List -- OK
@@ -16,7 +17,9 @@ function AccountManagemnt() {
     const user = LocalStorageUtils.getUser();
     if (user === null) return;
     const username = user.username;
+    const balance = user.balance;
     setUsername(username);
+    setBalance(balance);
     get("/api/enrolling/my-enrollment?username=" + { username }, {
       username: user.username,
     })
@@ -82,17 +85,21 @@ function AccountManagemnt() {
         <div className="row">
           <div className="col-lg-12">
             <div className="booking-container">
-              <h5 className="booking-heading">My Enrolled Course </h5>
+              <h3 className="booking-heading">My Enrolled Course </h3>
             </div>
           </div>
         </div>
 
-        <div className="card-wrapper">
+        <div className="card-wrapper ">
           {listCourses.map((course, index) => {
             return <CourseCard dat={course} key={index} />;
           })}
         </div>
-        <div className="clrfloat"></div>
+        <div className="clrfloat border-bottom"></div>
+
+        <div className="row mt-4 mb-4 border-bottom">
+          <h3>Your balance is: {balance} (VND)</h3>
+        </div>
 
         <div className="row mt-4 button-handle">
           <form className="mt-4 topup-wrapper">

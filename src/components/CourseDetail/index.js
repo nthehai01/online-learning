@@ -210,13 +210,13 @@ function CourseDetail() {
             min="1"
             max="5"
           />
+          <input
+            type="button"
+            value="Submit"
+            className="btn btn-primary"
+            onClick={rateCourse}
+          />
         </div>
-        <input
-          type="button"
-          value="Submit"
-          className="btn btn-primary"
-          onClick={rateCourse}
-        />
       </form>
     );
   };
@@ -319,13 +319,6 @@ function CourseDetail() {
         <div
           href=""
           className="tutor-btn btn btn-primary"
-          onClick={enrollCourse}
-        >
-          Đăng kí khóa học
-        </div>
-        <div
-          href=""
-          className="tutor-btn btn btn-primary"
           onClick={joiningCourse}
         >
           Tham gia
@@ -337,10 +330,8 @@ function CourseDetail() {
         >
           Get Zoom Link
         </div>
-        <p className="zoomLinkContentStudent">
-          Zoom Link will be pasted here!!
-        </p>
-        <h4 href="">Rating Course</h4>
+        <p className="zoomLinkContentStudent"></p>
+        <h5 href="">Rating Course</h5>
         {renderRadioButton()}
       </React.Fragment>
     );
@@ -354,13 +345,12 @@ function CourseDetail() {
             <div className="card-body">
               <h3 className="card-title">{courseName}</h3>
               <p className="card-text">{description}</p>
-
-              {/* <p className="card-text">
-                <b>Rating:</b>
-                {listRating.map((rating) => {
-                  return <p>{star}</p>;
-                })}
-              </p> */}
+              <div
+                className="btn btn-primary mt-4 center"
+                onClick={enrollCourse}
+              >
+                Đăng ký
+              </div>
             </div>
           </div>
         </div>
@@ -374,13 +364,13 @@ function CourseDetail() {
           <p className="card-text">
             <b>Length :</b> {startingDate} - {endingDate}
           </p>
-          <p className="card-text">
-            <b>Fee:</b> {fee}
+          <p className="card-text ">
+            <b>Fee:</b> <span className="fee-card-text">{fee}</span>
           </p>
           <p className="card-text">
             <b>Day:</b>
             {listDay.map((day) => {
-              return <div>{day}</div>;
+              return <span> {day} </span>;
             })}
           </p>
         </div>
