@@ -12,7 +12,7 @@ function AccountManagemnt() {
   const [balance, setBalance] = useState("");
 
   useEffect(() => {
-    // Get User + Course List -- OK
+    // Get User + Course List
 
     const user = LocalStorageUtils.getUser();
     if (user === null) return;
@@ -24,9 +24,7 @@ function AccountManagemnt() {
       username: user.username,
     })
       .then((res) => {
-        if (res.data.content !== null) {
-          setListCourses(res.data.content);
-        }
+        setListCourses(res.data.content.filter((x) => x != null));
       })
       .catch(console.error());
   }, []);

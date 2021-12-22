@@ -35,10 +35,11 @@ function CourseDetail() {
     get("/api/courses/detail?course=" + courseID).then((res) => {
       const courseName = res.data.content.courseName;
       const description = res.data.content.description;
-      var picture = res.data.content.picture;
-      if (!picture)
+      let picture = res.data.content.picture;
+      if (picture === "#")
         picture =
           "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/NASA-HS201427a-HubbleUltraDeepField2014-20140603.jpg/1200px-NASA-HS201427a-HubbleUltraDeepField2014-20140603.jpg";
+      setPicture(picture);
       const timeStart = res.data.content.time.starting;
       const timeEnd = res.data.content.time.ending;
       const startingDate = res.data.content.startingDate;
@@ -149,6 +150,8 @@ function CourseDetail() {
   // Student
   const enrollCourse = () => {
     const user = LocalStorageUtils.getUser();
+    const balance = user.balance;
+
     if (user == null) {
       alert("Chưa đăng nhập, xin mời bạn đăng nhập");
       <Navigate to="/form-login" />;
@@ -157,7 +160,12 @@ function CourseDetail() {
         course: courseID,
         username: user.username,
       })
-        .then((res) => alert(res.data.message))
+        .then((res) => {
+          alert(res.data.message);
+          console.log(res.data.content.fee);
+          user.balance -= parseInt(res.data.content.fee);
+          LocalStorageUtils.setUser(user);
+        })
         .catch((err) => alert(err.response.data.message));
     }
   };
@@ -178,7 +186,7 @@ function CourseDetail() {
           console.log(err.response);
           // document.querySelector(".zoomLinkContentStudent").innerHTML =
           //   err.response.data.message;
-          alert(err.response.data.message);
+          alert(err.response);
         });
     }
   };
@@ -317,6 +325,12 @@ function CourseDetail() {
     return (
       <React.Fragment>
         <div
+          className="tutor-btn btn btn-primary mt-4 center"
+          onClick={enrollCourse}
+        >
+          Đăng ký
+        </div>
+        <div
           href=""
           className="tutor-btn btn btn-primary"
           onClick={joiningCourse}
@@ -343,38 +357,37 @@ function CourseDetail() {
           <div className="card m-4">
             <img src={picture} className="card-img-top" alt="..." />
             <div className="card-body">
-              <h3 className="card-title">{courseName}</h3>
+              <h4 className="card-title">{courseName}</h4>
               <p className="card-text">{description}</p>
-              <div
-                className="btn btn-primary mt-4 center"
-                onClick={enrollCourse}
-              >
-                Đăng ký
-              </div>
             </div>
           </div>
         </div>
         <div className="card-content col-lg-4 mt-4">
           <p className="card-text">
+            <i class="fas fa-chalkboard-teacher mr-2"></i>
             <b>Tutor:</b> {tutor}
           </p>
           <p className="card-text">
+            <i class="far fa-clock mr-2"></i>
             <b>Time:</b> {timeStart} - {timeEnd}
           </p>
           <p className="card-text">
             <b>Length :</b> {startingDate} - {endingDate}
           </p>
           <p className="card-text ">
+            <i class="fas fa-dollar-sign mr-2"></i>
             <b>Fee:</b> <span className="fee-card-text">{fee}</span>
           </p>
           <p className="card-text">
+            <i class="fas fa-calendar mr-2"></i>
             <b>Day:</b>
             {listDay.map((day) => {
               return <span> {day} </span>;
             })}
           </p>
+          <div className="control-panel">{renderControlPanel()}</div>
         </div>
-        <div className="control-panel col-lg-4">{renderControlPanel()}</div>
+        {/* <div className="control-panel col-lg-4">{renderControlPanel()}</div> */}
       </div>
     </div>
   );
