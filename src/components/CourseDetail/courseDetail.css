@@ -172,3 +172,15 @@
   width: 100%;
   display: block;
 }
+
+.edit-button,
+.delete-button,
+.create-button,
+.get-money-button {
+  width: 100%;
+  display: block;
+}
+
+.tutor-view {
+  display: block;
+}

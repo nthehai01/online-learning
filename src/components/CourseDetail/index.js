@@ -223,131 +223,39 @@ function CourseDetail() {
       .catch((err) => console.log(err.response));
   };
 
-  // const renderControlPanel = () => {
-  //   if (role === "tutor") {
-  //     return (
-  //       <React.Fragment>
-  //         <h4 className="mt-2">Course Info Edit</h4>
-  //         <p className="no-margin-bottom mt-3">Course Name</p>
-  //         <input
-  //           type="text"
-  //           className="form-control mt-2"
-  //           id="courseName"
-  //           defaultValue={courseName}
-  //         />
-  //         <p className="no-margin-bottom mt-3">Description</p>
-  //         <input
-  //           type="text"
-  //           className="form-control mt-2"
-  //           id="description"
-  //           defaultValue={description}
-  //         />
-  //         <p className="no-margin-bottom mt-3">Fee</p>
-  //         <input
-  //           type="number"
-  //           className="form-control mt-2"
-  //           id="fee"
-  //           defaultValue={fee}
-  //         />
-  //         <p className="no-margin-bottom mt-3">Time Start</p>
-  //         <input
-  //           type="text"
-  //           className="form-control mt-2"
-  //           id="timeStart"
-  //           defaultValue={timeStart}
-  //         />
-  //         <p className="no-margin-bottom mt-3">Time End</p>
-  //         <input
-  //           type="text"
-  //           className="form-control mt-2"
-  //           id="timeEnd"
-  //           defaultValue={timeEnd}
-  //         />
-  //         <p className="no-margin-bottom mt-3">Starting Date</p>
-  //         <input
-  //           type="text"
-  //           className="form-control mt-2"
-  //           id="startingDate"
-  //           defaultValue={startingDate}
-  //         />
-  //         <p className="no-margin-bottom mt-3">Ending Date</p>
-  //         <input
-  //           type="text"
-  //           className="form-control mt-2"
-  //           id="endingDate"
-  //           defaultValue={endingDate}
-  //         />
-  //         <div
-  //           href=""
-  //           className="tutor-btn btn btn-primary mb-4"
-  //           onClick={editCourseInfo}
-  //         >
-  //           Edit
-  //         </div>
-
-  //         <h4 className="mt-2"> Delete this course</h4>
-  //         <div
-  //           href=""
-  //           className="tutor-btn btn btn-primary mb-4"
-  //           onClick={deleteCourse}
-  //         >
-  //           Delete
-  //         </div>
-
-  //         <h4 className="mt-2"> Create Zoom Host Link</h4>
-  //         <div
-  //           href=""
-  //           className="tutor-btn btn btn-primary"
-  //           onClick={createZoomHostLink}
-  //         >
-  //           Create
-  //         </div>
-  //         <p className="zoomLinkContent">Zoom Link will be pasted here!!</p>
-
-  //         <h4 className="mt-2"> Get Money</h4>
-  //         <div
-  //           href=""
-  //           className="tutor-btn btn btn-primary mb-4"
-  //           onClick={getMoney}
-  //         >
-  //           Get Money
-  //         </div>
-  //       </React.Fragment>
-  //     );
-  //   }
-
-  //   return (
-  //     <React.Fragment>
-  //       <div className="container">
-  //         <div className="row">
-  //           <div
-  //             className="tutor-btn btn btn-primary mt-4 center"
-  //             onClick={enrollCourse}
-  //           >
-  //             Đăng ký
-  //           </div>
-  //           <div
-  //             href=""
-  //             className="tutor-btn btn btn-primary"
-  //             onClick={joiningCourse}
-  //           >
-  //             Tham gia
-  //           </div>
-  //           <div
-  //             href=""
-  //             className="tutor-btn btn btn-primary"
-  //             onClick={createZoomHostLink}
-  //           >
-  //             Get Zoom Link
-  //           </div>
-  //           <p className="zoomLinkContentStudent"></p>
-  //           <h5 href="">Rating Course</h5>
-  //           {renderRadioButton()}
-  //         </div>
-  //       </div>
-  //     </React.Fragment>
-  //   );
-  // };
+  const renderViewForTutor = () => {
+    const username = LocalStorageUtils.getUser().username;
+    if (tutor === username) {
+      return (
+        <React.Fragment>
+          <div
+            className="edit-button btn btn-primary mt-2 tutor-view"
+            onClick={editCourseInfo}
+          >
+            Edit
+          </div>
+          <div
+            className="delete-button btn btn-danger mt-2 tutor-view"
+            onClick={deleteCourse}
+          >
+            Delete
+          </div>
+          <div
+            className="create-button btn btn-light mt-2 tutor-view"
+            onClick={editCourseInfo}
+          >
+            Create Zoom Link
+          </div>
+          <div
+            className="get-money-button btn btn-warning mt-2 tutor-view"
+            onClick={editCourseInfo}
+          >
+            Get Money
+          </div>
+        </React.Fragment>
+      );
+    }
+  };
 
   const renderView = () => {
     if (role === "student")
@@ -428,55 +336,77 @@ function CourseDetail() {
                   </form>
                 </div>
               </div>
-
-              {/* <div className="control-panel">{renderControlPanel()}</div> */}
-              {/* <div className="control-panel col-lg-4">{renderControlPanel()}</div> */}
             </div>
           </div>
         </React.Fragment>
       );
+    else {
+      return (
+        <React.Fragment>
+          <div className="container container-course">
+            <div className="row">
+              <div className="card-wrapper col-lg-4">
+                <div className="card m-4">
+                  <img src={picture} className="card-img-top" alt="..." />
+                  <div className="card-body">
+                    <h4 className="card-title">{courseName}</h4>
+                    <p className="card-text">{description}</p>
+                    <div>{renderViewForTutor()}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="card-content col-lg-4 mt-4 pt-2">
+                <p className="card-text">
+                  <i class="fas fa-chalkboard-teacher mr-2"></i>
+                  <b>Tutor:</b> {tutor}
+                </p>
+                <p className="card-text">
+                  <i class="far fa-clock mr-2"></i>
+                  <b>Time:</b> {timeStart} - {timeEnd}
+                </p>
+                <p className="card-text">
+                  <i class="fas fa-laptop mr-2"></i>
+                  <b>Length :</b> {startingDate} - {endingDate}
+                </p>
+                <p className="card-text ">
+                  <i class="fas fa-dollar-sign mr-2"></i>
+                  <b>Fee:</b> <span className="fee-card-text">{fee}</span>
+                </p>
+                <p className="card-text">
+                  <i class="fas fa-calendar mr-2"></i>
+                  <b>Day:</b>
+                  {listDay.map((day) => {
+                    return <span> {day} </span>;
+                  })}
+                </p>
+                <div className="card-content mt-4 notify-message">
+                  <form className="form-rating ml-4 mt-3">
+                    <p>Please input your rating: (1-5)</p>
+                    <div className="form-group">
+                      <input
+                        type="number"
+                        className="form-control mb-2 mt-2"
+                        id="star"
+                        min="1"
+                        max="5"
+                      />
+                      <input
+                        type="button"
+                        value="Submit"
+                        className="btn btn-primary"
+                        onClick={rateCourse}
+                      />
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </React.Fragment>
+      );
+    }
   };
-  return (
-    // <div className="container container-course">
-    //   <div className="row">
-    //     <div className="card-wrapper col-lg-4">
-    //       <div className="card m-4">
-    //         <img src={picture} className="card-img-top" alt="..." />
-    //         <div className="card-body">
-    //           <h4 className="card-title">{courseName}</h4>
-    //           <p className="card-text">{description}</p>
-    //         </div>
-    //       </div>
-    //     </div>
-    //     <div className="card-content col-lg-4 mt-4 pt-2">
-    //       <p className="card-text">
-    //         <i class="fas fa-chalkboard-teacher mr-2"></i>
-    //         <b>Tutor:</b> {tutor}
-    //       </p>
-    //       <p className="card-text">
-    //         <i class="far fa-clock mr-2"></i>
-    //         <b>Time:</b> {timeStart} - {timeEnd}
-    //       </p>
-    //       <p className="card-text">
-    //         <b>Length :</b> {startingDate} - {endingDate}
-    //       </p>
-    //       <p className="card-text ">
-    //         <i class="fas fa-dollar-sign mr-2"></i>
-    //         <b>Fee:</b> <span className="fee-card-text">{fee}</span>
-    //       </p>
-    //       <p className="card-text">
-    //         <i class="fas fa-calendar mr-2"></i>
-    //         <b>Day:</b>
-    //         {listDay.map((day) => {
-    //           return <span> {day} </span>;
-    //         })}
-    //       </p>
-    //     </div>
-    //     {/* <div className="control-panel">{renderControlPanel()}</div> */}
-    //     {/* <div className="control-panel col-lg-4">{renderControlPanel()}</div> */}
-    //   </div>
-    // </div>
-    <div>{renderView()}</div>
-  );
+  return <div>{renderView()}</div>;
 }
 export default CourseDetail;
