@@ -134,7 +134,7 @@
 }
 
 .card.m-4 {
-  border-radius: 10px;
+  border-radius: 20px;
   overflow: hidden;
 }
 
@@ -145,4 +145,20 @@
 
 .card-content {
   font-size: 18px;
+  border: 1px solid #ccc;
+  height: 180px;
+  font-size: 20px;
+  border-radius: 20px;
+  background-color: white;
+}
+
+.container-course {
+  background-color: #f5fbff;
+}
+
+.notify-message {
+  margin-left: -16px;
+  height: 180px;
+  width: 380px;
+  display: none;
 }

@@ -95,9 +95,9 @@ function AccountManagemnt() {
         </div>
         <div className="clrfloat border-bottom"></div>
 
-        <div className="row mt-4 mb-4 border-bottom">
+        {/* <div className="row mt-4 mb-4 border-bottom">
           <h3>Your balance is: {balance} (VND)</h3>
-        </div>
+        </div> */}
 
         <div className="row mt-4 button-handle">
           <form className="mt-4 topup-wrapper">
