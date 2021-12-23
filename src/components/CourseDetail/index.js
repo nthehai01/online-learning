@@ -29,8 +29,7 @@ function CourseDetail() {
     if (user !== null) setRole(user.role);
   };
   useEffect(() => {
-    // get course detail
-
+    // Get Course Detail
     get("/api/courses/detail?course=" + courseID).then((res) => {
       const courseName = res.data.content.courseName;
       const description = res.data.content.description;
@@ -176,9 +175,8 @@ function CourseDetail() {
     } else {
       post("/api/joining/join", { course: courseID, username: user.username })
         .then((res) => {
-          alert(res.data.message);
-          // document.querySelector(".zoomLinkContentStudent").innerHTML =
-          //   zoomLink;
+          //alert(res.data.message);
+          alert(zoomLink);
         })
         .catch((err) => {
           alert(err.response.data.message);
@@ -188,7 +186,6 @@ function CourseDetail() {
     }
   };
 
-  // Chỗ này làm có hơi củ chuối
   const rateCourse = () => {
     LocalStorageUtils.getToken();
     const user = LocalStorageUtils.getUser();
@@ -203,32 +200,27 @@ function CourseDetail() {
       .catch((err) => console.log(err.response));
   };
 
-  const display = () => {
+  const displayRatingCourse = () => {
     const formRatingElement = document.querySelector(".notify-message");
-    formRatingElement.style.display = "block";
-  };
-
-  const renderRadioButton = () => {
-    return (
-      <form className="form-rating ml-4 mt-3">
-        <p>Please input your rating: (1-5)</p>
-        <div className="form-group">
-          <input
-            type="number"
-            className="form-control mb-2 mt-2"
-            id="star"
-            min="1"
-            max="5"
-          />
-          <input
-            type="button"
-            value="Submit"
-            className="btn btn-primary"
-            onClick={rateCourse}
-          />
-        </div>
-      </form>
-    );
+    const user = LocalStorageUtils.getUser();
+    const username = user.username;
+    get("/api/enrolling/my-enrollment?username=" + username)
+      .then((res) => {
+        var i = 0;
+        while (i < res.data.content.filter((x) => x != null).length) {
+          if (
+            courseName ===
+            res.data.content.filter((x) => x != null)[i].courseName
+          ) {
+            formRatingElement.style.display = "block";
+            break;
+          }
+          i++;
+        }
+        if (i == res.data.content.filter((x) => x != null).length)
+          alert("User cannot rate this course");
+      })
+      .catch((err) => console.log(err.response));
   };
 
   // const renderControlPanel = () => {
@@ -370,20 +362,20 @@ function CourseDetail() {
                     <h4 className="card-title">{courseName}</h4>
                     <p className="card-text">{description}</p>
                     <div
-                      className="enroll-button btn btn-primary mt-4 center"
+                      className="enroll-button btn btn-primary mt-4"
                       onClick={enrollCourse}
                     >
                       Enroll
                     </div>
                     <div
-                      className="joining-button btn btn-outline-primary mt-2 center"
+                      className="joining-button btn btn-outline-primary mt-2"
                       onClick={joiningCourse}
                     >
                       Joining
                     </div>
                     <div
-                      className="rating-button btn btn-light mt-2 center"
-                      onClick={display}
+                      className="rating-button btn btn-light mt-2"
+                      onClick={displayRatingCourse}
                     >
                       Rating
                     </div>

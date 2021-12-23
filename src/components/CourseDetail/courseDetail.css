@@ -162,3 +162,13 @@
   width: 380px;
   display: none;
 }
+
+.enroll-button {
+  width: 100%;
+}
+
+.joining-button,
+.rating-button {
+  width: 100%;
+  display: block;
+}
