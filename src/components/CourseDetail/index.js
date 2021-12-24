@@ -124,11 +124,9 @@ function CourseDetail() {
         .then((res) => {
           const zoomHostLink = res.data.content.zoomHostLink;
           const zoomLink = res.data.content.zoomLink;
-          if (document.querySelector(".zoomLinkContent"))
-            document.querySelector(".zoomLinkContent").innerHTML = zoomHostLink;
-          if (document.querySelector(".zoomLinkContentStudent"))
-            document.querySelector(".zoomLinkContentStudent").innerHTML =
-              zoomLink;
+          document.querySelector(".zoomLinkContent").innerHTML = zoomHostLink;
+          document.querySelector(".zoomLink").style.display = "block";
+          document.querySelector(".card-course-info").style.height = "280px";
         })
         .catch((err) => console.log(err));
     }
@@ -223,6 +221,18 @@ function CourseDetail() {
       .catch((err) => console.log(err.response));
   };
 
+  // Tutor
+
+  const renderEditPannel = () => {
+    document.querySelector(".card-edit-course").style.display = "block";
+    document.querySelector(".card-course-info").style.display = "none";
+  };
+
+  const cancelButton = () => {
+    document.querySelector(".card-edit-course").style.display = "none";
+    document.querySelector(".card-course-info").style.display = "block";
+  };
+
   const renderViewForTutor = () => {
     const username = LocalStorageUtils.getUser().username;
     if (tutor === username) {
@@ -230,7 +240,7 @@ function CourseDetail() {
         <React.Fragment>
           <div
             className="edit-button btn btn-primary mt-2 tutor-view"
-            onClick={editCourseInfo}
+            onClick={renderEditPannel}
           >
             Edit
           </div>
@@ -242,13 +252,13 @@ function CourseDetail() {
           </div>
           <div
             className="create-button btn btn-light mt-2 tutor-view"
-            onClick={editCourseInfo}
+            onClick={createZoomHostLink}
           >
             Create Zoom Link
           </div>
           <div
             className="get-money-button btn btn-warning mt-2 tutor-view"
-            onClick={editCourseInfo}
+            onClick={getMoney}
           >
             Get Money
           </div>
@@ -356,7 +366,7 @@ function CourseDetail() {
                 </div>
               </div>
 
-              <div className="card-content col-lg-4 mt-4 pt-2">
+              <div className="card-content col-lg-6 mt-4 pt-2 card-course-info">
                 <p className="card-text">
                   <i class="fas fa-chalkboard-teacher mr-2"></i>
                   <b>Tutor:</b> {tutor}
@@ -380,25 +390,95 @@ function CourseDetail() {
                     return <span> {day} </span>;
                   })}
                 </p>
-                <div className="card-content mt-4 notify-message">
-                  <form className="form-rating ml-4 mt-3">
-                    <p>Please input your rating: (1-5)</p>
-                    <div className="form-group">
+                <p className="card-text zoomLink">
+                  <i class="fas fa-link mr-2"></i>
+                  <b>Zoom Link: </b>
+                  <span className="zoomLinkContent"></span>;
+                </p>
+              </div>
+              <div class="col-lg-8 mt-4 course-edit-wrapper">
+                <div className="card-content card-edit-course">
+                  <div class="course-edit-heading">
+                    <h6 class="mt-3 ml-2 text-primary">Course Info</h6>
+                  </div>
+
+                  <div className="course-info-wrapper">
+                    <div class="form-group edit-wrapper">
+                      <label for="couseName">Course Name</label>
                       <input
-                        type="number"
-                        className="form-control mb-2 mt-2"
-                        id="star"
-                        min="1"
-                        max="5"
-                      />
-                      <input
-                        type="button"
-                        value="Submit"
-                        className="btn btn-primary"
-                        onClick={rateCourse}
+                        type="text"
+                        class="form-control course-edit-item"
+                        id="courseName"
+                        defaultValue={courseName}
                       />
                     </div>
-                  </form>
+                    <div class="form-group edit-wrapper">
+                      <label for="description">Course Description</label>
+                      <input
+                        type="text"
+                        class="form-control course-edit-item"
+                        id="description"
+                        defaultValue={description}
+                      />
+                    </div>
+                    <div class="form-group edit-wrapper">
+                      <label for="description">Fee</label>
+                      <input
+                        type="number"
+                        class="form-control course-edit-item"
+                        id="fee"
+                        defaultValue={fee}
+                      />
+                    </div>
+                    <div class="form-group edit-wrapper">
+                      <label for="description">Time Start</label>
+                      <input
+                        type="text"
+                        class="form-control course-edit-item"
+                        id="timeStart"
+                        defaultValue={timeStart}
+                      />
+                    </div>
+                    <div class="form-group edit-wrapper">
+                      <label for="description">Time End</label>
+                      <input
+                        type="text"
+                        class="form-control course-edit-item"
+                        id="timeEnd"
+                        defaultValue={timeEnd}
+                      />
+                    </div>
+                    <div class="form-group edit-wrapper">
+                      <label for="description">Starting Date</label>
+                      <input
+                        type="text"
+                        class="form-control course-edit-item"
+                        id="startingDate"
+                        defaultValue={startingDate}
+                      />
+                    </div>
+                    <div class="form-group edit-wrapper">
+                      <label for="description">Ending Date</label>
+                      <input
+                        type="text"
+                        class="form-control course-edit-item"
+                        id="endingDate"
+                        defaultValue={endingDate}
+                      />
+                    </div>
+                    <div
+                      class="form-group edit-wrapper btn btn-primary save-button"
+                      onClick={editCourseInfo}
+                    >
+                      Save
+                    </div>
+                    <div
+                      class="form-group edit-wrapper btn btn-light btn-outline-dark cancel-button"
+                      onClick={cancelButton}
+                    >
+                      Cancel
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

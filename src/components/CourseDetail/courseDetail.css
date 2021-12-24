@@ -184,3 +184,47 @@
 .tutor-view {
   display: block;
 }
+.card-edit-course {
+  height: 300px !important;
+  width: 94%;
+  display: none;
+}
+
+.course-info-wrapper {
+  width: 100%;
+}
+
+.edit-wrapper {
+  margin: 0 10px;
+  font-size: 14px;
+  display: inline-block;
+  width: 200px;
+}
+
+.edit-wrapper:nth-child(2) {
+  width: 420px;
+}
+
+.course-edit-item {
+  width: 100% !important;
+}
+
+.save-button,
+.cancel-button {
+  width: 90px;
+  margin-top: 10px;
+}
+
+.card-text:last-child {
+  white-space: wrap;
+  width: 520px;
+  overflow: hidden;
+  text-overflow: clip;
+}
+.card-course-info {
+  height: 180px;
+}
+
+.zoomLink {
+  display: none;
+}
