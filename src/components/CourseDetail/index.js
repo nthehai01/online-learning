@@ -65,11 +65,13 @@ function CourseDetail() {
       setSlug(slug);
 
       const user = LocalStorageUtils.getUser();
-      const username = user.username;
-      get("/api/enrolling/my-enrollment?username=" + username).then((res) => {
-        setListEnrolledCourse(res.data.content.filter((x) => x != null));
-        console.log(listEnrolledCourses);
-      });
+      if (user != null)
+        get("/api/enrolling/my-enrollment?username=" + user.username).then(
+          (res) => {
+            setListEnrolledCourse(res.data.content.filter((x) => x != null));
+            console.log(listEnrolledCourses);
+          }
+        );
     });
     // Get Role tương ứng
     getRole();
@@ -297,7 +299,7 @@ function CourseDetail() {
           </div>
         </React.Fragment>
       );
-    }
+    } else return;
   };
 
   const renderView = () => {
@@ -388,7 +390,7 @@ function CourseDetail() {
           </div>
         </React.Fragment>
       );
-    else {
+    else if (role == "tutor") {
       return (
         <React.Fragment>
           <div className="container container-course">
@@ -518,6 +520,50 @@ function CourseDetail() {
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </React.Fragment>
+      );
+    } else {
+      return (
+        <React.Fragment>
+          <div className="container container-course">
+            <div className="row">
+              <div className="card-wrapper col-lg-4">
+                <div className="card m-4">
+                  <img src={picture} className="card-img-top" alt="..." />
+                  <div className="card-body">
+                    <h4 className="card-title">{courseName}</h4>
+                    <p className="card-text">{description}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="card-content col-lg-6 mt-4 pt-2 card-course-info">
+                <p className="card-text">
+                  <i class="fas fa-chalkboard-teacher mr-2"></i>
+                  <b>Tutor:</b> {tutor}
+                </p>
+                <p className="card-text">
+                  <i class="far fa-clock mr-2"></i>
+                  <b>Time:</b> {timeStart} - {timeEnd}
+                </p>
+                <p className="card-text">
+                  <i class="fas fa-laptop mr-2"></i>
+                  <b>Length :</b> {startingDate} - {endingDate}
+                </p>
+                <p className="card-text ">
+                  <i class="fas fa-dollar-sign mr-2"></i>
+                  <b>Fee:</b> <span className="fee-card-text">{fee}</span>
+                </p>
+                <p className="card-text">
+                  <i class="fas fa-calendar mr-2"></i>
+                  <b>Day:</b>
+                  {listDay.map((day) => {
+                    return <span> {day} </span>;
+                  })}
+                </p>
               </div>
             </div>
           </div>
