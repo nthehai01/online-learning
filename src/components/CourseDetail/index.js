@@ -28,6 +28,8 @@ function CourseDetail() {
     const user = LocalStorageUtils.getUser();
     if (user !== null) setRole(user.role);
   };
+
+  const [listEnrolledCourses, setListEnrolledCourse] = useState([]);
   useEffect(() => {
     // Get Course Detail
     get("/api/courses/detail?course=" + courseID).then((res) => {
@@ -61,18 +63,30 @@ function CourseDetail() {
       setListDay(listDay);
       setZoomLink(zoomLink);
       setSlug(slug);
-    });
-    // TEST LOGIN
-    post("/api/user/login", {
-      username: "john",
-      password: "123456",
-    }).then((res) => {
-      LocalStorageUtils.setUser(res.data.content);
-      LocalStorageUtils.setToken(res.data.content.accessToken);
+
+      const user = LocalStorageUtils.getUser();
+      const username = user.username;
+      get("/api/enrolling/my-enrollment?username=" + username).then((res) => {
+        setListEnrolledCourse(res.data.content.filter((x) => x != null));
+        console.log(listEnrolledCourses);
+      });
     });
     // Get Role tương ứng
     getRole();
+
+    //renderViewForStudent();
   }, []);
+
+  // const renderViewForStudent = () => {
+  //   for (var i = 0; i < listEnrolledCourses.length; i++) {
+  //     if (courseName === listEnrolledCourses[i].courseName) {
+  //       document.querySelector(".enroll-button").style.display = "none";
+  //       document.querySelector(".joining-button").style.display = "block";
+  //       document.querySelector(".rating-button").style.display = "block";
+  //       break;
+  //     }
+  //   }
+  // };
 
   // OK
   const editCourseInfo = () => {
@@ -158,9 +172,19 @@ function CourseDetail() {
           console.log(res.data.content.fee);
           user.balance -= parseInt(res.data.content.fee);
           LocalStorageUtils.setUser(user);
+          document.querySelector(".enroll-button").style.display = "none";
+          document.querySelector(".joining-button").style.display = "block";
+          document.querySelector(".rating-button").style.display = "block";
         })
         .catch((err) => {
-          alert(err.response.data.message);
+          if (
+            err.response.data.message ===
+            "User have already enrolled this course"
+          ) {
+            document.querySelector(".enroll-button").style.display = "none";
+            document.querySelector(".joining-button").style.display = "block";
+            document.querySelector(".rating-button").style.display = "block";
+          } else alert(err.response.data.message);
         });
     }
   };
@@ -171,16 +195,25 @@ function CourseDetail() {
       <Navigate to="/form-login" />;
       alert("Chưa đăng nhập, xin mời bạn đăng nhập");
     } else {
-      post("/api/joining/join", { course: courseID, username: user.username })
+      // post("/api/joining/join", { course: courseID, username: user.username })
+      //   .then((res) => {
+      //     document.querySelector(".zoomLinkContentStudent").innerHTML =
+      //       res.data.content.message;
+      //     document.querySelector(".zoomLink").style.display = "block";
+      //     document.querySelector(".card-course-info").style.height = "280px";
+      //   })
+      //   .catch((err) => {
+      //     alert(err.response.data.message);
+      //   });
+      post("/api/courses/new-meeting", { slug: slug })
         .then((res) => {
-          //alert(res.data.message);
-          alert(zoomLink);
+          const zoomLink = res.data.content.zoomLink;
+          document.querySelector(".zoomLinkContentStudent").innerHTML =
+            zoomLink;
+          document.querySelector(".zoomLink").style.display = "block";
+          document.querySelector(".card-course-info").style.height = "280px";
         })
-        .catch((err) => {
-          alert(err.response.data.message);
-          // document.querySelector(".zoomLinkContentStudent").innerHTML =
-          //   err.response.data.message;
-        });
+        .catch((err) => console.log(err));
     }
   };
 
@@ -198,6 +231,7 @@ function CourseDetail() {
       .catch((err) => console.log(err.response));
   };
 
+  // Nếu đăng ký rồi mới cho đánh giá
   const displayRatingCourse = () => {
     const formRatingElement = document.querySelector(".notify-message");
     const user = LocalStorageUtils.getUser();
@@ -222,7 +256,6 @@ function CourseDetail() {
   };
 
   // Tutor
-
   const renderEditPannel = () => {
     document.querySelector(".card-edit-course").style.display = "block";
     document.querySelector(".card-course-info").style.display = "none";
@@ -280,19 +313,19 @@ function CourseDetail() {
                     <h4 className="card-title">{courseName}</h4>
                     <p className="card-text">{description}</p>
                     <div
-                      className="enroll-button btn btn-primary mt-4"
+                      className="enroll-button btn-primary mt-4"
                       onClick={enrollCourse}
                     >
                       Enroll
                     </div>
                     <div
-                      className="joining-button btn btn-outline-primary mt-2"
+                      className="joining-button btn-outline-primary mt-2"
                       onClick={joiningCourse}
                     >
                       Joining
                     </div>
                     <div
-                      className="rating-button btn btn-light mt-2"
+                      className="rating-button btn-light mt-2"
                       onClick={displayRatingCourse}
                     >
                       Rating
@@ -301,7 +334,7 @@ function CourseDetail() {
                 </div>
               </div>
 
-              <div className="card-content col-lg-4 mt-4 pt-2">
+              <div className="card-content col-lg-6 mt-4 pt-2 card-course-info">
                 <p className="card-text">
                   <i class="fas fa-chalkboard-teacher mr-2"></i>
                   <b>Tutor:</b> {tutor}
@@ -324,6 +357,11 @@ function CourseDetail() {
                   {listDay.map((day) => {
                     return <span> {day} </span>;
                   })}
+                </p>
+                <p className="card-text zoomLink">
+                  <i class="fas fa-link mr-2"></i>
+                  <b>Zoom Link: </b>
+                  <span className="zoomLinkContentStudent"></span>;
                 </p>
                 <div className="card-content mt-4 notify-message">
                   <form className="form-rating ml-4 mt-3">

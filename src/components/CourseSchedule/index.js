@@ -19,16 +19,20 @@ const CourseSchedule = (props) => {
       .then((res) => {
         const temp = [];
         console.log(res.data.content.filter((x) => x != null));
-        // if (res.data.content[0] !== null)
-        //   setCalendarData(
-        //     buildMap(
-        //       res.data.content.map(
-        //         (val) =>
-        //           val.day + " " + val.time.starting + "-" + val.time.ending
-        //       ),
-        //       res.data.content.map((val) => val.courseName + " - " + val.tutor)
-        //     )
-        //   );
+        if (res.data.content.filter((x) => x != null))
+          setCalendarData(
+            buildMap(
+              res.data.content
+                .filter((x) => x != null)
+                .map(
+                  (val) =>
+                    val.day + " " + val.time.starting + "-" + val.time.ending
+                ),
+              res.data.content
+                .filter((x) => x != null)
+                .map((val) => val.courseName + " - " + val.tutor)
+            )
+          );
       })
       .catch(console.error());
   }, []);

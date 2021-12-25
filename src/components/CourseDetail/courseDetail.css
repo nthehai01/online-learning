@@ -170,7 +170,23 @@
 .joining-button,
 .rating-button {
   width: 100%;
-  display: block;
+  display: none;
+}
+
+.enroll-button,
+.joining-button,
+.rating-button {
+  height: 38px;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 10px;
+  line-height: 38px;
+}
+
+.enroll-button:hover,
+.joining-button:hover,
+.rating-button:hover {
+  cursor: pointer;
 }
 
 .edit-button,

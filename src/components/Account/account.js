@@ -49,6 +49,30 @@ function AccountManagemnt() {
     LocalStorageUtils.clear();
     window.location.reload();
   };
+
+  const renderEnrolledCourses = () => {
+    const user = LocalStorageUtils.getUser();
+    const role = user.role;
+    if (role === "student") {
+      return (
+        <React.Fragment>
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="booking-container">
+                <h3 className="booking-heading">My Enrolled Course </h3>
+              </div>
+            </div>
+          </div>
+          <div className="card-wrapper ">
+            {listCourses.map((course, index) => {
+              return <CourseCard dat={course} key={index} />;
+            })}
+          </div>
+          <div className="clrfloat border-bottom"></div>
+        </React.Fragment>
+      );
+    }
+  };
   return (
     <div className="content-wrapper">
       <div className="container">
@@ -80,20 +104,7 @@ function AccountManagemnt() {
           </div>
         </div>
 
-        <div className="row">
-          <div className="col-lg-12">
-            <div className="booking-container">
-              <h3 className="booking-heading">My Enrolled Course </h3>
-            </div>
-          </div>
-        </div>
-
-        <div className="card-wrapper ">
-          {listCourses.map((course, index) => {
-            return <CourseCard dat={course} key={index} />;
-          })}
-        </div>
-        <div className="clrfloat border-bottom"></div>
+        <div>{renderEnrolledCourses()}</div>
 
         {/* <div className="row mt-4 mb-4 border-bottom">
           <h3>Your balance is: {balance} (VND)</h3>
