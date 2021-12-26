@@ -73,6 +73,36 @@ function AccountManagemnt() {
       );
     }
   };
+
+  const renderTopUp = () => {
+    const user = LocalStorageUtils.getUser();
+    const role = user.role;
+    if (role === "student") {
+      return (
+        <React.Fragment>
+          <div className="row mt-4 button-handle">
+            <form className="mt-4 topup-wrapper">
+              <div className="form-group">
+                <label for="amount">Top Up Here</label>
+                <input
+                  type="number"
+                  className="form-control mt-2"
+                  id="amount"
+                />
+              </div>
+              <button
+                type="button"
+                className="btn btn-primary mt-4 ml-2"
+                onClick={handlePayIn}
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </React.Fragment>
+      );
+    }
+  };
   return (
     <div className="content-wrapper">
       <div className="container">
@@ -110,21 +140,7 @@ function AccountManagemnt() {
           <h3>Your balance is: {balance} (VND)</h3>
         </div>
 
-        <div className="row mt-4 button-handle">
-          <form className="mt-4 topup-wrapper">
-            <div className="form-group">
-              <label for="amount">Top Up Here</label>
-              <input type="number" className="form-control mt-2" id="amount" />
-            </div>
-            <button
-              type="button"
-              className="btn btn-primary mt-4 ml-2"
-              onClick={handlePayIn}
-            >
-              Submit
-            </button>
-          </form>
-        </div>
+        <div>{renderTopUp()}</div>
       </div>
     </div>
   );
